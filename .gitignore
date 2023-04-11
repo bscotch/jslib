@@ -1,0 +1,70 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# secrets
+.env
+*.env
+.env.*
+.rumpusCredentials
+.rumpusDelegations
+appleLoginKey
+
+# builds
+/bundle
+tmp/
+.turbo
+dist
+build
+sandbox
+rumpus/server/app
+.trebuchet.json
+*.cfg
+sample.json
+debug.log
+spritely.log
+.pnpm-debug.log
+.svelte-kit
+
+# dependencies
+node_modules
+package-lock.json
+.yarn/cache
+.yarn/install-state.gz
+
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.eslintcache
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+*.tsbuildinfo
+.pnpm-debug.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+.env*
+!.env.project
+!.env.vault
+.flaskenv*

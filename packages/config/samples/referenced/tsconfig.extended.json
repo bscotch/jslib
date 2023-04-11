@@ -1,0 +1,11 @@
+{
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "$lib/*": ["./*"],
+      "$lib": ["./referencedSample.ts"]
+    }
+  },
+  "references": [{ "path": "./referencedDeep/tsconfig.extended.extended.json" }]
+}

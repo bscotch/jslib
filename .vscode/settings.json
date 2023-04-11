@@ -1,0 +1,106 @@
+{
+  "files.associations": {
+    "turbo.json": "jsonc"
+  },
+  "files.exclude": {
+    "**/node_modules": false,
+    "**/.turbo": false,
+    "**/*.tsbuildinfo": false,
+    "**/dist": false,
+    "**/build": false,
+    ".github": false,
+    ".vscode": false,
+    "scripts": false,
+    "config": false,
+    "rumpus": false
+  },
+  "search.exclude": {
+    "tmp/": true,
+    "**/.turbo": true,
+    "**/package-lock.json": true,
+    "**/pnpm-lock.yaml": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.svelte-kit": true,
+    "**/build": true,
+    "**/app": true,
+    "rumpus/server/assets/site/js": true,
+    "rumpus/server/assets/site/css": true,
+    "**/playwright*": true
+  },
+  "explorer.fileNesting.patterns": {
+    "*.js": "$(capture).*",
+    "*.ts": "$(capture).*",
+    "*.mjs": "$(capture).*",
+    "*.cjs": "$(capture).*",
+    "*rc": "$(capture)ignore",
+    "package.json": "workspace.json, lerna.*, readme.md, executors.json, generators.json, nx.json, package-lock.json,.gitignore, .*, tsconfig.*, turbo.json, pnpm-lock.yaml, pnpm-workspace.yaml, *.config.js, *.config.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "readme.md": "todo*, changelog*, license*, contributing*"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false,
+    "source.fixAll": true,
+    "source.addMissingImports": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "debug.javascript.terminalOptions": {
+    "skipFiles": ["<node_internals>/**"],
+    "sourceMaps": true,
+    "remoteRoot": null
+  },
+  "terminal.integrated.automationProfile.windows": {
+    "path": "C:/Program Files/Git/bin/bash.exe",
+    "icon": "terminal-bash"
+  },
+  "terminal.integrated.env.windows": {
+    "BSCOTCH_REPO": "@bscotch/tech"
+  },
+  "terminal.integrated.env.linux": {
+    "BSCOTCH_REPO": "@bscotch/tech"
+  },
+  "terminal.integrated.env.osx": {
+    "BSCOTCH_REPO": "@bscotch/tech"
+  },
+  "cSpell.words": [
+    "bumptype",
+    "deptype",
+    "deptypes",
+    "packlist",
+    "Pathy",
+    "pointable",
+    "Sequentialize",
+    "Sequentialized",
+    "Spritely",
+    "subqueue",
+    "subqueues"
+  ],
+  "eslint.packageManager": "pnpm",
+  "eslint.onIgnoredFiles": "warn",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "svelte.enable-ts-plugin": true,
+  "svelte.plugin.svelte.defaultScriptLanguage": "ts",
+  "svelte.plugin.css.globals": "**/global.css",
+  "css.styleSheets": ["global.css"],
+  "eslint.codeActionsOnSave.mode": "problems",
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "cSpell.useGitignore": true,
+  "cSpell.files": ["**/*.md", "**/src/**/*"]
+  // "terminal.integrated.automationProfile.windows": {
+  //   "path": "powershell.exe",
+  //   "args": ["-NoLogo", "-NoProfile"]
+  // }
+}

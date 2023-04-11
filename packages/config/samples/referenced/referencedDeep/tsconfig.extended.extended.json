@@ -1,0 +1,9 @@
+{
+  "include": ["referencedDeepSample.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "$lib/*": ["./*"]
+    }
+  }
+}

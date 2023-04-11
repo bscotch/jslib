@@ -1,0 +1,82 @@
+{
+  "name": "@bscotch/trebuchet",
+  "version": "2.8.0",
+  "description": "Tooling for minimizing the cognitive load for monorepo/workspace management, with a focus on automation, minimal configuration, and interoperability with other tools.",
+  "keywords": [
+    "automate",
+    "automation",
+    "bscotch",
+    "cli",
+    "codemod",
+    "dependencies",
+    "dependency",
+    "manage",
+    "metaprogramming",
+    "monorepo",
+    "move",
+    "node",
+    "package",
+    "packages",
+    "project",
+    "projects",
+    "rename",
+    "repo",
+    "tools",
+    "typescript",
+    "workspace",
+    "workspaces",
+    "treb"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "treb": "./trebuchet.mjs"
+  },
+  "scripts": {
+    "build": "tsc-x --build",
+    "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
+    "test": "mocha --config ../../config/.mocharc.cjs",
+    "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
+    "watch": "tsc-x --build --watch"
+  },
+  "dependencies": {
+    "@bscotch/config": "workspace:*",
+    "@bscotch/pathy": "workspace:*",
+    "@bscotch/project": "workspace:*",
+    "@bscotch/utility": "workspace:*",
+    "@bscotch/validation": "workspace:*",
+    "@sinclair/typebox": "^0.25.20",
+    "commander": "10.0.0",
+    "dependency-graph": "^0.11.0",
+    "fs-extra": "11.1.0",
+    "inquirer": "9.1.4",
+    "json5": "^2.2.3",
+    "semver": "^7.3.8",
+    "simple-git": "^3.16.0",
+    "tslib": "^2.4.1",
+    "type-fest": "^3.5.2",
+    "yaml": "2.2.1"
+  },
+  "devDependencies": {
+    "@local/helpers": "workspace:*",
+    "@types/chai": "^4.3.4",
+    "@types/fs-extra": "^11.0.1",
+    "@types/inquirer": "^9.0.3",
+    "@types/mocha": "^10.0.1",
+    "@types/semver": "^7.3.13",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "rimraf": "^4.1.0",
+    "typescript": "4.9.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "name": "@bscotch/utility",
+  "version": "6.8.0",
+  "description": "Bscotch Utilities: Methods for common Node.js needs.",
+  "keywords": [
+    "utility",
+    "util",
+    "string",
+    "template",
+    "crypto",
+    "path",
+    "file",
+    "bscotch",
+    "butterscotch shenanigans"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.js"
+    },
+    "./decorator": {
+      "types": "./dist/lib/decorator.d.ts",
+      "import": "./dist/lib/decorator.js"
+    },
+    "./memoize": {
+      "types": "./dist/lib/memoize.d.ts",
+      "import": "./dist/lib/memoize.js"
+    },
+    "./sequentialize": {
+      "types": "./dist/lib/sequentialize.d.ts",
+      "import": "./dist/lib/sequentialize.js"
+    },
+    "./json-pointer": {
+      "types": "./dist/lib/jsonPointer.d.ts",
+      "import": "./dist/lib/jsonPointer.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc-x --build",
+    "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
+    "test": "mocha --config ../../config/.mocharc.cjs",
+    "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
+    "watch": "tsc-x --build --watch"
+  },
+  "dependencies": {
+    "debug": "4.3.4",
+    "eventemitter2": "^6.4.9",
+    "tslib": "^2.4.1"
+  },
+  "devDependencies": {
+    "@local/helpers": "workspace:*",
+    "@types/chai": "^4.3.4",
+    "@types/debug": "^4.1.7",
+    "@types/fs-extra": "^11.0.1",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "fs-extra": "11.1.0",
+    "mocha": "^10.2.0",
+    "rimraf": "^4.1.0",
+    "type-fest": "^3.5.2",
+    "typescript": "4.9.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

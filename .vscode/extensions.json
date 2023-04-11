@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "svelte.svelte-vscode",
+    "vncz.vscode-apielements",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "augustocdias.tasks-shell-input",
+    "wmaurer.change-case",
+    "aaron-bond.better-comments",
+    "streetsidesoftware.code-spell-checker",
+    "bierner.comment-tagged-templates",
+    "mikestead.dotenv",
+    "visualstudioexptteam.vscodeintellicode",
+    "ecmel.vscode-html-css",
+    "bierner.jsdoc-markdown-highlighting",
+    "mrmlnc.vscode-json5",
+    "yzhang.markdown-all-in-one",
+    "shd101wyy.markdown-preview-enhanced",
+    "redhat.vscode-commons",
+    "albert.tabout",
+    "britesnow.vscode-toggle-quotes",
+    "redhat.vscode-yaml"
+  ]
+}

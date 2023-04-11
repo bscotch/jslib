@@ -1,0 +1,56 @@
+{
+  "name": "@bscotch/config",
+  "version": "1.3.0",
+  "description": "A library of helper classes for modeling and managing configuration files, including tsconfig.json and package.json files.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc-x --build",
+    "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
+    "test": "mocha --config ../../config/.mocharc.cjs",
+    "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
+    "watch": "tsc-x --build --watch"
+  },
+  "dependencies": {
+    "@bscotch/pathy": "workspace:*",
+    "@bscotch/utility": "workspace:*",
+    "@bscotch/validation": "workspace:*",
+    "globby": "^13.1.3",
+    "json5": "^2.2.3",
+    "npm-packlist": "^5.1.3",
+    "semver": "^7.3.8",
+    "sort-package-json": "^2.1.0",
+    "tslib": "^2.4.1",
+    "type-fest": "^3.5.2"
+  },
+  "devDependencies": {
+    "@local/helpers": "workspace:*",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/npm-packlist": "^3.0.0",
+    "@types/semver": "^7.3.13",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "rimraf": "^4.1.0",
+    "typescript": "4.9.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "tags": [
+    "config",
+    "configuration",
+    "tsconfig",
+    "json",
+    "package-json",
+    "package.json",
+    "package"
+  ]
+}

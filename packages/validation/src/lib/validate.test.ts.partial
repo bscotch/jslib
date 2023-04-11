@@ -1,0 +1,180 @@
+// Need a validation strategy that:
+// - Works in code to validate method/constructor inputs & outputs
+// - Works with Typescript to ensure that the thing being validated cannot invisibly deviate during dev
+// - Works with Typescript to ensure that API consumers see full type information, including comments
+
+import { F } from 'ts-toolbelt';
+import type { Class, Constructor } from 'type-fest';
+
+// Utilities
+
+type AnyFunction<T extends unknown[] = unknown[]> = (
+  ...args: F.Narrow<T>
+) => unknown;
+
+// type PropertyDecorator<T extends Class<any>, K extends keyof ClassProperties<T>> = (target: T, propertyKey: K, descriptor: TypedPropertyDescriptor<T[K]>) => void;
+
+// Validators by type
+// Modeled after JSON Schema, but less verbose
+// TODO: Start with a string
+interface ValidString {
+  maxLength?: number;
+  minLength?: number;
+  pattern?: RegExp | string;
+  // Can we infer required from reflect-metadata?
+  // Can we infer default from reflect-metadata?
+}
+
+interface ValidNumber {
+  maximum?: number;
+  minimum?: number;
+}
+
+type Validator<T> = T extends string
+  ? ValidString
+  : T extends number
+  ? ValidNumber
+  : never;
+
+type Validatee<T> = T extends undefined | null | true
+  ? any
+  : T extends ValidString
+  ? string
+  : T extends ValidNumber
+  ? number
+  : never;
+
+type Validators<T extends unknown[] = any[]> = {
+  [K in keyof T]: Validator<T[K]> | undefined | null | true;
+};
+
+type Validatees<T extends unknown[]> = { [K in keyof T]: Validatee<T[K]> };
+
+// function V<V extends Validators<any[]>>(
+//   ...validators: V,
+// ): ConstructorValidator<V> {
+//   return function v<T extends Constructor<any, [...Validatees<V>,...any[]]>>(target: T) {
+//     return target;
+//   }
+// }
+
+type ValidatedArgs<V extends Validators> = [...Validatees<V>, ...any[]];
+
+type ValidatedFunction<V extends Validators<any[]>> = (
+  ...args: ValidatedArgs<V>
+) => any;
+
+type Descriptor<T> = TypedPropertyDescriptor<T>;
+
+type ConstructorValidator<Vs extends Validators> = <
+  T extends Constructor<any, ValidatedArgs<Vs>>,
+>(
+  target: T,
+) => T | void;
+
+type MethodValidator<V extends Validators> = <M extends ValidatedFunction<V>>(
+  target: any,
+  propertyKey: string,
+  descriptor: Descriptor<M>,
+) => TypedPropertyDescriptor<M> | undefined;
+
+function V<Vs extends Validators<any[]>>(
+  ...validators: Vs
+): ConstructorValidator<Vs>;
+function V<Vs extends Validators<any[]>>(
+  ...validators: Vs
+): MethodValidator<Vs>;
+function V<Vs extends Validators<any[]>>(...validators: Vs): any {
+  // function v<T extends Constructor<unknown, ValidatedArgs<Vs>>>(target: T): T | void;
+
+  // function v<T extends
+  //   AnyFunction<ValidatedArgs<Vs>>>(target: any, propertyKey: string, descriptor: Descriptor<T>): Descriptor<T> | void;
+
+  // function v<T extends ValidatedArgs<Vs>[0]>(target: any, propertyKey?: string, descriptor?: Descriptor<T>): Descriptor<T> | void;
+
+  return function v<
+    T extends Class<any> | Constructor<any>,
+    P extends string,
+    Value,
+  >(
+    target: T,
+    propertyKey?: P,
+    descriptor?: Descriptor<Value>,
+  ):
+    | void
+    | (Value extends AnyFunction
+        ? MethodValidator<Vs>
+        : P extends string
+        ? unknown
+        : ConstructorValidator<Vs>) {
+    return target as unknown as any;
+  };
+}
+
+// Constructor validation?
+@V({ minLength: 1 }, null, { minimum: 10 })
+class Sample {
+  constructor(
+    firstArg: string,
+    secondArg: boolean,
+    thirdArg: number,
+    // secondArg: { hello: number },
+    // thirdArg?: boolean,
+  ) {}
+
+  @V({
+    maxLength: 3,
+    pattern: /[a-z]/,
+  })
+  public stringProp: string;
+
+  @V(null, { minimum: 10 })
+  doStuff(hello: string, something?: number) {}
+
+  @V({ minLength: 3 })
+  static doStaticStuff(goodbye: boolean) {}
+}
+
+// Validator shapes
+
+// type ConstructorValidator<T extends Constructor<unknown>> =
+//   Validators<ConstructorParameters<T>>;
+
+// function V<T extends Class<unknown>, K extends keyof ClassMethods<T>>(
+//   validator: MethodValidator<T, K>,
+// ): MethodDecorator<T, K>;
+
+// function V<T extends ClassOrConstructor<any>, K extends keyof T>(
+//   validator: ConstructorValidator<T> | MethodValidator<T, K>,
+// ): AnyDecorator<T, K> {
+//   return (target, propertyKey, descriptor) => {};
+// }
+
+// function V<T extends Constructor<any>>(
+//   validator: T extends Constructor<infer U,infer A> ? A : never,
+// ): ConstructorDecorator<T>
+// function V<T extends Class<any>, K extends keyof T>(
+//   validator:
+// )
+// {
+//   return function (target: T): T {
+//     return target;
+//   }
+// }
+
+// function M<A extends unknown[]>(args:F.Narrow<A>) {
+//   return function m<K extends PropertyKey,F extends (...args:ArrayAsTuple<A>)=>any>(
+//     target: any,
+//     propertyKey: K,
+//     descriptor: TypedPropertyDescriptor<F>,
+//   ) {
+//     return true as unknown as any;
+//     // return descriptor;
+//   }
+// }
+
+describe('Validator decorators', function () {
+  it('can validate', function () {
+    const s = new Sample('hello');
+  });
+});

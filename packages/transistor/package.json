@@ -1,0 +1,39 @@
+{
+  "name": "@bscotch/transistor",
+  "version": "0.2.3",
+  "private": true,
+  "description": "A developer-friendly client for the Transistor.fm API.",
+  "keywords": [
+    "transistor",
+    "transistor.fm",
+    "podcast",
+    "client",
+    "api"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc-x --build",
+    "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
+    "watch": "tsc --build --watch"
+  },
+  "dependencies": {
+    "@bscotch/pathy": "workspace:*",
+    "dotenv": "^16.0.3",
+    "node-fetch": "^3.3.0",
+    "tslib": "^2.4.1"
+  },
+  "devDependencies": {
+    "@local/helpers": "workspace:*",
+    "marked": "^4.2.12",
+    "rimraf": "^4.1.0",
+    "typescript": "4.9.4"
+  }
+}

@@ -1,0 +1,2 @@
+# Added to prevent the root .gitignore from being used to determine
+# packlists for workspaces (see https://github.com/npm/cli/issues/5001#issuecomment-1151282491 )

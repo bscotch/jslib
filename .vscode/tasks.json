@@ -1,0 +1,430 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "forceFlag",
+      "type": "pickString",
+      "description": "Guarantee a clean build?",
+      "default": "",
+      "options": [
+        {
+          "label": "No",
+          "value": "--only"
+        },
+        {
+          "label": "Yes",
+          "value": "--force"
+        }
+      ]
+    },
+    {
+      "id": "projectGroup",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "cwd": "${workspaceFolder}",
+        "command": "pnpm repo-groups"
+      }
+    },
+    {
+      "id": "projectFromGroup",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "cwd": "${workspaceFolder}",
+        "command": "pnpm repo-projects --group ${input:projectGroup}"
+      }
+    },
+    {
+      "id": "thisProjectName",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "cwd": "${workspaceFolder}",
+        "command": "pnpm repo-who ${file} --as=name",
+        "useFirstResult": true
+      }
+    },
+    {
+      "id": "thisProjectDir",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "cwd": "${workspaceFolder}",
+        "command": "pnpm repo-who ${file} --as=dir",
+        "useFirstResult": true
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "label": "/🐚 Root Terminal",
+      "type": "process",
+      "group": "none",
+      "problemMatcher": [],
+      "promptOnClose": false,
+      "isBackground": true,
+      "runOptions": {
+        "reevaluateOnRerun": true,
+        "instanceLimit": 99
+      },
+      "presentation": {
+        "echo": false,
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": true,
+        "group": "terminals"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "powershell",
+      "args": [
+        "-NoLogo"
+      ]
+    },
+    {
+      "label": "⭐🐚 This Project's Terminal",
+      "type": "process",
+      "group": "none",
+      "problemMatcher": [],
+      "promptOnClose": false,
+      "isBackground": true,
+      "runOptions": {
+        "reevaluateOnRerun": true,
+        "instanceLimit": 99
+      },
+      "presentation": {
+        "echo": false,
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": true,
+        "group": "terminals"
+      },
+      "options": {
+        "cwd": "${input:thisProjectDir}"
+      },
+      "command": "powershell",
+      "args": [
+        "-NoLogo"
+      ]
+    },
+    {
+      "label": "🤔🐚 Choose Project Terminal",
+      "type": "process",
+      "group": "none",
+      "problemMatcher": [],
+      "promptOnClose": false,
+      "isBackground": true,
+      "runOptions": {
+        "reevaluateOnRerun": true,
+        "instanceLimit": 99
+      },
+      "presentation": {
+        "echo": false,
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": true,
+        "group": "terminals"
+      },
+      "options": {
+        "cwd": "${input:projectGroup}/${input:projectFromGroup}"
+      },
+      "command": "powershell",
+      "args": [
+        "-NoLogo"
+      ]
+    },
+    {
+      "label": "⭐🏗 Build This Project",
+      "type": "shell",
+      "command": "pnpm turbo run build --only --force --filter=...${input:thisProjectName}",
+      "group": "build",
+      "isBackground": false,
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "MOCHA_REPORTER": "vscode-problem-matcher"
+        }
+      },
+      "problemMatcher": [
+        {
+          "applyTo": "allDocuments",
+          "owner": "typescript",
+          "background": {
+            "activeOnStart": true
+          },
+          "pattern": {
+            "regexp": "^(?<project>[^:]+):(?<task>[^:]+): (?<file>[^\\(]+)\\((?<row>\\d+),(?<col>\\d+)\\): error (?<code>[^ ]+): (?<message>.*)$",
+            "file": 3,
+            "line": 4,
+            "column": 5,
+            "code": 6,
+            "message": 7
+          }
+        },
+        {
+          "applyTo": "allDocuments",
+          "owner": "mocha",
+          "pattern": [
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): > (?<file>.*?)::(?<line>.*?)::(?<col>.*?)::(?<message>.*)$",
+              "file": 3,
+              "line": 4,
+              "column": 5,
+              "message": 6
+            },
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): ~ (?<title>.*)$",
+              "message": 3
+            }
+          ]
+        }
+      ],
+      "presentation": {
+        "echo": true,
+        "revealProblems": "onProblem",
+        "focus": true,
+        "panel": "shared",
+        "group": "tasks",
+        "clear": true,
+        "close": false,
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "⭐🧪 Test This Project",
+      "type": "shell",
+      "command": "pnpm turbo run build test --only --force --filter=...${input:thisProjectName}",
+      "group": "test",
+      "isBackground": false,
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "MOCHA_REPORTER": "vscode-problem-matcher"
+        }
+      },
+      "problemMatcher": [
+        {
+          "applyTo": "allDocuments",
+          "owner": "typescript",
+          "background": {
+            "activeOnStart": true
+          },
+          "pattern": {
+            "regexp": "^(?<project>[^:]+):(?<task>[^:]+): (?<file>[^\\(]+)\\((?<row>\\d+),(?<col>\\d+)\\): error (?<code>[^ ]+): (?<message>.*)$",
+            "file": 3,
+            "line": 4,
+            "column": 5,
+            "code": 6,
+            "message": 7
+          }
+        },
+        {
+          "applyTo": "allDocuments",
+          "owner": "mocha",
+          "pattern": [
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): > (?<file>.*?)::(?<line>.*?)::(?<col>.*?)::(?<message>.*)$",
+              "file": 3,
+              "line": 4,
+              "column": 5,
+              "message": 6
+            },
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): ~ (?<title>.*)$",
+              "message": 3
+            }
+          ]
+        }
+      ],
+      "presentation": {
+        "echo": true,
+        "revealProblems": "onProblem",
+        "focus": true,
+        "panel": "shared",
+        "group": "tasks",
+        "clear": true,
+        "close": false,
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "♾️🧪 Test Everything!",
+      "type": "shell",
+      "command": "pnpm turbo run test build ${input:forceFlag}",
+      "group": "test",
+      "isBackground": false,
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "MOCHA_REPORTER": "vscode-problem-matcher"
+        }
+      },
+      "problemMatcher": [
+        {
+          "applyTo": "allDocuments",
+          "owner": "typescript",
+          "background": {
+            "activeOnStart": true
+          },
+          "pattern": {
+            "regexp": "^(?<project>[^:]+):(?<task>[^:]+): (?<file>[^\\(]+)\\((?<row>\\d+),(?<col>\\d+)\\): error (?<code>[^ ]+): (?<message>.*)$",
+            "file": 3,
+            "line": 4,
+            "column": 5,
+            "code": 6,
+            "message": 7
+          }
+        },
+        {
+          "applyTo": "allDocuments",
+          "owner": "mocha",
+          "pattern": [
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): > (?<file>.*?)::(?<line>.*?)::(?<col>.*?)::(?<message>.*)$",
+              "file": 3,
+              "line": 4,
+              "column": 5,
+              "message": 6
+            },
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): ~ (?<title>.*)$",
+              "message": 3
+            }
+          ]
+        }
+      ],
+      "presentation": {
+        "echo": true,
+        "revealProblems": "onProblem",
+        "focus": true,
+        "panel": "shared",
+        "group": "tasks",
+        "clear": true,
+        "close": false,
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "♾️👀 Watch Everything!",
+      "type": "shell",
+      "command": "pnpm turbo run watch --parallel --only",
+      "group": "build",
+      "isBackground": true,
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "MOCHA_REPORTER": "vscode-problem-matcher"
+        }
+      },
+      "problemMatcher": [
+        {
+          "applyTo": "allDocuments",
+          "owner": "typescript",
+          "background": {
+            "activeOnStart": true
+          },
+          "pattern": {
+            "regexp": "^(?<project>[^:]+):(?<task>[^:]+): (?<file>[^\\(]+)\\((?<row>\\d+),(?<col>\\d+)\\): error (?<code>[^ ]+): (?<message>.*)$",
+            "file": 3,
+            "line": 4,
+            "column": 5,
+            "code": 6,
+            "message": 7
+          }
+        },
+        {
+          "applyTo": "allDocuments",
+          "owner": "mocha",
+          "pattern": [
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): > (?<file>.*?)::(?<line>.*?)::(?<col>.*?)::(?<message>.*)$",
+              "file": 3,
+              "line": 4,
+              "column": 5,
+              "message": 6
+            },
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): ~ (?<title>.*)$",
+              "message": 3
+            }
+          ]
+        }
+      ],
+      "presentation": {
+        "echo": true,
+        "revealProblems": "onProblem",
+        "focus": true,
+        "panel": "shared",
+        "group": "tasks",
+        "clear": true,
+        "close": false,
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "♾️🏗 Build Everything!",
+      "type": "shell",
+      "command": "pnpm turbo run build ${input:forceFlag}",
+      "group": "build",
+      "isBackground": false,
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "MOCHA_REPORTER": "vscode-problem-matcher"
+        }
+      },
+      "problemMatcher": [
+        {
+          "applyTo": "allDocuments",
+          "owner": "typescript",
+          "background": {
+            "activeOnStart": true
+          },
+          "pattern": {
+            "regexp": "^(?<project>[^:]+):(?<task>[^:]+): (?<file>[^\\(]+)\\((?<row>\\d+),(?<col>\\d+)\\): error (?<code>[^ ]+): (?<message>.*)$",
+            "file": 3,
+            "line": 4,
+            "column": 5,
+            "code": 6,
+            "message": 7
+          }
+        },
+        {
+          "applyTo": "allDocuments",
+          "owner": "mocha",
+          "pattern": [
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): > (?<file>.*?)::(?<line>.*?)::(?<col>.*?)::(?<message>.*)$",
+              "file": 3,
+              "line": 4,
+              "column": 5,
+              "message": 6
+            },
+            {
+              "regexp": "^(?<project>[^:]+):(?<task>[^:]+): ~ (?<title>.*)$",
+              "message": 3
+            }
+          ]
+        }
+      ],
+      "presentation": {
+        "echo": true,
+        "revealProblems": "onProblem",
+        "focus": true,
+        "panel": "shared",
+        "group": "tasks",
+        "clear": true,
+        "close": false,
+        "showReuseMessage": false
+      }
+    }
+  ]
+}
