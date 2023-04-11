@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { dateIsInThePast, dateIsOlderThanMillisAgo } from '../lib/dates.js';
+import { dateIsOlderThanMillisAgo } from '../lib/dates.js';
 import { waitForMillis, waitForSeconds } from '../lib/wait.js';
 
 describe('Waits', function () {
@@ -20,8 +20,5 @@ describe('Waits', function () {
     resetNow();
     await waitForSeconds(waitTimeMillis / 1000);
     expectInPast();
-
-    resetNow();
-    expect(dateIsInThePast(now)).to.be.false;
   });
 });

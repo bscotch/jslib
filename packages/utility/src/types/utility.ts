@@ -140,12 +140,18 @@ export type CompoundLookup<
     : never
   : T;
 
+interface RegExpExecArray {
+  indices?: RegExpIndicesArray;
+}
+
+interface RegExpIndicesArray<Groups extends string = string>
+  extends Array<[number, number]> {
+  groups?: {
+    [Name in Groups]: [number, number];
+  };
+}
+
 export interface RegExpExecArrayWithIndices<Groups extends string = string>
   extends RegExpExecArray {
-  indices: {
-    [index: number]: [number, number];
-    groups: {
-      [Name in Groups]: [number, number];
-    };
-  };
+  indices: RegExpIndicesArray<Groups>;
 }

@@ -44,14 +44,15 @@ importers:
       '@bscotch/utility': workspace:*
       '@bscotch/validation': workspace:*
       '@types/chai': ^4.3.4
+      '@types/ignore-walk': 4.0.0
       '@types/mocha': ^10.0.1
       '@types/npm-packlist': ^7.0.0
       '@types/semver': ^7.3.13
       chai: ^4.3.7
       globby: ^13.1.4
+      ignore-walk: 6.0.2
       json5: ^2.2.3
       mocha: ^10.2.0
-      npm-packlist: ^7.0.4
       rimraf: ^5.0.0
       semver: ^7.4.0
       sort-package-json: ^2.4.1
@@ -63,14 +64,15 @@ importers:
       '@bscotch/utility': link:../utility
       '@bscotch/validation': link:../validation
       globby: 13.1.4
+      ignore-walk: 6.0.2
       json5: 2.2.3
-      npm-packlist: 7.0.4
       semver: 7.4.0
       sort-package-json: 2.4.1
       tslib: 2.5.0
       type-fest: 3.8.0
     devDependencies:
       '@types/chai': 4.3.4
+      '@types/ignore-walk': 4.0.0
       '@types/mocha': 10.0.1
       '@types/npm-packlist': 7.0.0
       '@types/semver': 7.3.13
@@ -2071,13 +2073,6 @@ packages:
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
-
-  /npm-packlist/7.0.4:
-    resolution: {integrity: sha512-d6RGEuRrNS5/N84iglPivjaJPxhDbZmlbTwTDX2IbcRHG5bZCdtysYMhwiPvcF4GisXHGn7xsxv+GQ7T/02M5Q==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dependencies:
-      ignore-walk: 6.0.2
-    dev: false
 
   /once/1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}

@@ -2,7 +2,7 @@ import { Pathy, PathyOrString } from '@bscotch/pathy';
 import { exec, Trace } from '@bscotch/utility';
 import { assertUserClaim } from '@bscotch/validation';
 import { ok } from 'assert';
-import packlist from 'npm-packlist';
+import walk from 'ignore-walk';
 import { default as semver, ReleaseType } from 'semver';
 import sortPackageJson from 'sort-package-json';
 import type { PackageJson as _PackageJsonData } from 'type-fest';
@@ -309,7 +309,9 @@ export class PackageJson<
    * See {@link https://docs.npmjs.com/cli/v7/configuring-npm/package-json#files the docs}.
    */
   async packingList(): Promise<Pathy[]> {
-    const list = await packlist({ path: this.dir.toString() });
+    const list = await walk({
+      path: this.dir.toString(),
+    });
     return list.map((path) => new Pathy(path, this.dir.absolute));
   }
 

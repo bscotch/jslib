@@ -23,8 +23,8 @@
     "@bscotch/utility": "workspace:*",
     "@bscotch/validation": "workspace:*",
     "globby": "^13.1.4",
+    "ignore-walk": "6.0.2",
     "json5": "^2.2.3",
-    "npm-packlist": "^7.0.4",
     "semver": "^7.4.0",
     "sort-package-json": "^2.4.1",
     "tslib": "^2.5.0",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
+    "@types/ignore-walk": "4.0.0",
     "@types/mocha": "^10.0.1",
     "@types/npm-packlist": "^7.0.0",
     "@types/semver": "^7.3.13",
