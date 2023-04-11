@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/debounce-watch",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Monitor files for changes, debounce events, and finally trigger consequences.",
   "keywords": [
     "autoload",
