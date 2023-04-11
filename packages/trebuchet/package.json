@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/trebuchet",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "description": "Tooling for minimizing the cognitive load for monorepo/workspace management, with a focus on automation, minimal configuration, and interoperability with other tools.",
   "keywords": [
     "automate",
