@@ -1,5 +1,17 @@
 {
   "name": "@bscotch/pathy",
+  "description": "A toolkit for simplifying working with paths and files.",
+  "keywords": [
+    "path",
+    "file",
+    "filesystem",
+    "fs",
+    "filepath",
+    "directory",
+    "normalize",
+    "absolute",
+    "relative"
+  ],
   "version": "2.6.0",
   "repository": {
     "type": "git",
