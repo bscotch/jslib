@@ -7,10 +7,13 @@
     "file",
     "filesystem",
     "fs",
+    "read",
+    "write",
     "filepath",
     "directory",
     "normalize",
     "absolute",
+    "sort",
     "relative"
   ],
   "homepage": "https://github.com/bscotch/jslib/tree/develop/packages/pathy#readme",
