@@ -3,6 +3,11 @@
   "version": "0.2.3",
   "private": true,
   "description": "A developer-friendly client for the Transistor.fm API.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/transistor"
+  },
   "keywords": [
     "transistor",
     "transistor.fm",

@@ -1,6 +1,11 @@
 {
   "name": "@bscotch/validation",
   "version": "0.2.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/validation"
+  },
   "type": "module",
   "exports": {
     ".": {

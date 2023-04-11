@@ -1,6 +1,11 @@
 {
   "name": "@bscotch/pathy",
   "version": "2.6.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/pathy"
+  },
   "type": "module",
   "exports": {
     ".": {

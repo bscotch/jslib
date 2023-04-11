@@ -1,6 +1,11 @@
 {
   "name": "@bscotch/project",
   "version": "2.3.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/project"
+  },
   "type": "module",
   "exports": {
     ".": {

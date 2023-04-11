@@ -2,6 +2,11 @@
   "name": "@bscotch/utility",
   "version": "6.8.0",
   "description": "Bscotch Utilities: Methods for common Node.js needs.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/utility"
+  },
   "keywords": [
     "utility",
     "util",
