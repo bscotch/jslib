@@ -142,6 +142,12 @@ export class PathyStatic {
     return segments;
   }
 
+  /**
+   * Compare to paths, returning a number indicating their relative
+   * sort order based on their parts. This is useful for semantically
+   * sorting paths so that those in the same folder heirarchy are grouped
+   * together, and those with similar depth are grouped near each other.
+   */
   static compare(path1: PathyOrString, path2: PathyOrString): number {
     const path1Parts = PathyStatic.explode(path1);
     const path2Parts = PathyStatic.explode(path2);

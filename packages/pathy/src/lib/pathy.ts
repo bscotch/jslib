@@ -507,15 +507,33 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
   }
 
   /**
+   * Get the normalized path as an array of
+   * path segments.
+   */
+  explode(): string[] {
+    return PathyStatic.explode(this);
+  }
+
+  /**
+   * Get all parent paths eventually leading to a given
+   * path.
+   */
+  lineage(): string[] {
+    return PathyStatic.lineage(this);
+  }
+
+  /**
    * Serialize this Pathy instance as a plain string.
    *
    * Uses the absolute path, since that's generally
    * the safest choice.
    */
-  override toString(options?: { format: 'win32' | 'posix' }) {
-    return options?.format == 'win32'
-      ? this.absolute.replace(/\//g, '\\')
-      : this.absolute;
+  override toString(options?: {
+    format: 'win32' | 'posix';
+    relative?: boolean;
+  }) {
+    const path = options?.relative ? this.relative : this.absolute;
+    return options?.format == 'win32' ? path.replace(/\//g, '\\') : path;
   }
 
   /**
