@@ -2,19 +2,21 @@
 
 Utility and helper methods and types for common programming problems in Node.js.
 
-(These utilities do not work in browsers.)
-
-**📢 Announcement 📢** The deployed version of this package found [on npm](https://www.npmjs.com/package/@bscotch/utility) is from an _internal_ fork of the public repo. The public repo will eventually be deleted. Non-Bscotch users should use the npm package for the most up-to-date version.
-
 ## Installation
 
 ### Requirements
 
-- Node.js v14+
+- Node.js v16+
 
 ### Installation
 
+[From npm](https://www.npmjs.com/package/@bscotch/utility):
+
 `npm install @bscotch/utility`
+
+## Features
+
+The following listings show a subset of the utilities found in this package.
 
 ### Strings
 
@@ -184,8 +186,9 @@ import {
   dateIsOlderThanMinutesAgo,
   dateIsOlderThanHoursAgo,
   dateIsOlderThanDaysAgo,
-  dateIsValid,
-  dateAssertIsValid,
+  isDate,
+  isValidDate,
+  assertIsValidDate
 } from '@bscotch/utility';
 ```
 
@@ -193,22 +196,20 @@ import {
 
 ```ts
 import {
-  arrayTouch,
-  arrayUntouch,
-  arrayEachTruthyComparedToLast,
-  arrayValuesAreDecreasing,
-  arrayValuesAreIncreasing,
+  arrayWrapped,
+  arrayUnwrapped,
+  arrayIsIncreasing,
   arraySortNumeric,
   arraySortNumericDescending,
 } from '@bscotch/utility';
 
-arrayTouch('hello'); // => ["hello"]
-arrayTouch(['hello']); // => ["hello"]
-arrayTouch(undefined); // => []
+arrayIsIncreasing([-10, 99, 1111]); // => true
 
-arrayValuesAreIncreasing([-10, 99, 1111]); // => true
+arrayWrapped('hello'); // => ["hello"]
+arrayWrapped(['hello']); // => ["hello"]
+arrayWrapped(undefined); // => []
 
-arrayUntouch('hello'); // => "hello"
-arrayUntouch(['hello']); // => "hello"
-arrayUntouch(['hello', 'goodbye']); // => "hello"
+arrayUnwrapped('hello'); // => "hello"
+arrayUnwrapped(['hello']); // => "hello"
+arrayUnwrapped(['hello', 'goodbye']); // => "hello"
 ```
