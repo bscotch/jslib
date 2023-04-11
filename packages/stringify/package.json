@@ -11,17 +11,16 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc-x --build",
+    "build": "tsc --build",
     "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
     "test": "mocha --config ../../config/.mocharc.cjs",
     "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
-    "watch": "tsc-x --build --watch"
+    "watch": "tsc --build --watch"
   },
   "dependencies": {
     "tslib": "^2.4.1"
   },
   "devDependencies": {
-    "@local/helpers": "workspace:*",
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "rimraf": "^4.1.0",

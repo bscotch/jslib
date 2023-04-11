@@ -1,7 +1,7 @@
 import { deleteAsync } from 'del';
 
-const toDelete = ['node_modules/.cache', 'dist'];
-const projectFolders = ['lib', 'rumpus', 'stitch'];
+const toDelete = ['node_modules/.cache', 'dist', '.turbo'];
+const projectFolders = ['packages'];
 const outPaths = [
   'build',
   'dist',

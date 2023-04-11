@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "build:all": "turbo run build --force",
-    "rumpus:clean-build": "pnpm install --filter tech && pnpm clean:artifacts && pnpm clean:deps && ./rumpus/server/scripts/ci.prebuild.sh && ./rumpus/server/scripts/ci.build.sh && cd dist && docker-compose down && node scripts/ci.test.mjs",
     "clean:artifacts": "node ./scripts/nuke-builds.mjs",
     "clean:deps": "node ./scripts/nuke-deps.mjs",
     "fix:deps": "syncpack fix-mismatches && treb fix --allProjects --packageJson",

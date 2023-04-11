@@ -11,11 +11,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc-x --build",
+    "build": "tsc --build",
     "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
     "test": "mocha --config ../../config/.mocharc.cjs",
     "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
-    "watch": "tsc-x --build --watch"
+    "watch": "tsc --build --watch"
   },
   "dependencies": {
     "@bscotch/utility": "workspace:*",
@@ -25,7 +25,6 @@
     "yaml": "2.2.1"
   },
   "devDependencies": {
-    "@local/helpers": "workspace:*",
     "@types/chai": "^4.3.4",
     "@types/fs-extra": "^11.0.1",
     "@types/mocha": "^10.0.1",

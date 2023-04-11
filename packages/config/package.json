@@ -12,11 +12,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc-x --build",
+    "build": "tsc --build",
     "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
     "test": "mocha --config ../../config/.mocharc.cjs",
     "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
-    "watch": "tsc-x --build --watch"
+    "watch": "tsc --build --watch"
   },
   "dependencies": {
     "@bscotch/pathy": "workspace:*",
@@ -31,7 +31,6 @@
     "type-fest": "^3.5.2"
   },
   "devDependencies": {
-    "@local/helpers": "workspace:*",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "@types/npm-packlist": "^3.0.0",

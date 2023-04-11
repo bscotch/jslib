@@ -11,9 +11,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc-x --build",
+    "build": "tsc --build",
     "clean": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
-    "watch": "tsc-x --build --watch"
+    "watch": "tsc --build --watch"
   },
   "dependencies": {
     "@bscotch/config": "workspace:*",
@@ -31,7 +31,6 @@
     "tslib": "^2.4.1"
   },
   "devDependencies": {
-    "@local/helpers": "workspace:*",
     "@types/diff": "^5.0.2",
     "@types/fs-extra": "^11.0.1",
     "@types/mocha": "^10.0.1",

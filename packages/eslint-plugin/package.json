@@ -12,7 +12,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build:dev": "tsc-x --build",
+    "build:dev": "tsc --build",
     "clean:dev": "rimraf build dist *.tsbuildinfo **/*.tsbuildinfo",
     "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
     "watch:dev": "tsc --build --watch"
@@ -21,7 +21,6 @@
     "tslib": "^2.4.1"
   },
   "devDependencies": {
-    "@local/helpers": "workspace:*",
     "@typescript-eslint/utils": "^5.48.2",
     "mocha": "^10.2.0",
     "rimraf": "^4.1.0",
