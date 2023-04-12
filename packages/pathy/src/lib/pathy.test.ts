@@ -20,6 +20,11 @@ describe('Pathy', function () {
     expect(PathyStatic.normalize('C://a/b/.//c//../d//')).to.equal('c:/a/b/d');
   });
 
+  it('can add a validator', function () {
+    const p = new Pathy('a/b/c').withValidator(z.string());
+    expect(p.validator).to.exist;
+  });
+
   it('can identify root paths', function () {
     expect(new Pathy('/').isRoot).to.be.true;
     expect(new Pathy('c:/').isRoot).to.be.true;

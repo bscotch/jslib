@@ -95,6 +95,10 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
     );
     this.absolute = Pathy.resolve(this.workingDirectory, this.normalized);
     this.relative = Pathy.resolveRelative(this.workingDirectory, this.absolute);
+    this.validator =
+      typeof cwdOrOptions === 'object'
+        ? (cwdOrOptions.validator as PathyOptions<FileContent>['validator'])
+        : undefined;
   }
 
   get directory(): string {
