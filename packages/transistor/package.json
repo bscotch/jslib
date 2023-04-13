@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/transistor",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "private": true,
   "description": "A developer-friendly client for the Transistor.fm API.",
   "keywords": [
@@ -10,12 +10,12 @@
     "client",
     "api"
   ],
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/bscotch/jslib.git",
     "directory": "packages/transistor"
   },
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
