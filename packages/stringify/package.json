@@ -6,6 +6,7 @@
     "url": "https://github.com/bscotch/jslib.git",
     "directory": "packages/stringify"
   },
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {

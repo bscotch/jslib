@@ -17,6 +17,7 @@
     "relative"
   ],
   "homepage": "https://github.com/bscotch/jslib/tree/develop/packages/pathy#readme",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/bscotch/jslib.git",

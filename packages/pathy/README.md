@@ -12,7 +12,7 @@ This package provides a single main export, the `Pathy` class, which is an immut
 
 Install [from npm](https://www.npmjs.com/package/@bscotch/pathy), via your package manager of choice.
 
-For example: `npm install @bscotch/path` or `pnpm add @bscotch/path`
+For example: `npm install @bscotch/pathy` or `pnpm add @bscotch/pathy`
 
 ## Usage
 

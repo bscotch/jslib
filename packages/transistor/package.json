@@ -10,6 +10,7 @@
     "client",
     "api"
   ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/bscotch/jslib.git",

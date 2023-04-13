@@ -18,6 +18,7 @@
     "url": "https://github.com/bscotch/jslib.git",
     "directory": "packages/utility"
   },
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {

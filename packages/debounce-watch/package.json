@@ -23,6 +23,7 @@
     "url": "https://github.com/bscotch/jslib.git",
     "directory": "packages/debounce-watch"
   },
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
