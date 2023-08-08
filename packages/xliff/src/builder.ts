@@ -8,6 +8,10 @@ export function createXliffDocument(
   return new XliffDocumentBuilder(...args);
 }
 
+interface XliffExtraAttributes {
+  [key: string]: unknown;
+}
+
 interface XliffSizeRestrictionAttributes {
   /**
    * The maximum string size. Defaults to '*' (Infinity).
@@ -16,6 +20,63 @@ interface XliffSizeRestrictionAttributes {
    * the first is the minimum and the second is the maximum.
    */
   'slr:sizeRestriction'?: number | [number, number];
+}
+
+export type TextDirection = 'ltr' | 'rtl' | 'auto';
+export type YesNo = 'yes' | 'no';
+export type Priority = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+export type State = 'initial' | 'translated' | 'reviewed' | 'final';
+
+/**
+ * See {@link https://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html#file the docs}
+ */
+export interface XliffFileAttributes
+  extends XliffSizeRestrictionAttributes,
+    XliffExtraAttributes {
+  canResegment?: YesNo;
+  id: string;
+  original?: string;
+  srcDir?: TextDirection;
+  translate?: YesNo;
+  trgDir?: TextDirection;
+}
+
+export interface XliffNoteAttributes extends XliffExtraAttributes {
+  appliesTo?: string;
+  category?: string;
+  id?: string;
+  priority?: Priority;
+}
+
+export interface XliffGroupAttributes
+  extends XliffSizeRestrictionAttributes,
+    XliffExtraAttributes {
+  canResegment?: YesNo;
+  id: string;
+  name?: string;
+  srcDir?: TextDirection;
+  translate?: YesNo;
+  trgDir?: TextDirection;
+  type?: string;
+}
+
+export interface XliffUnitAttributes
+  extends XliffSizeRestrictionAttributes,
+    XliffExtraAttributes {
+  canResegment?: YesNo;
+  id: string;
+  name?: string;
+  srcDir?: TextDirection;
+  translate?: YesNo;
+  trgDir?: TextDirection;
+  type?: string;
+}
+
+export interface XliffSegmentAttributes extends XliffExtraAttributes {
+  id?: string;
+  canResegment?: YesNo;
+  state?: State;
+  subState?: string;
 }
 
 export class XliffDocumentBuilder {
@@ -41,9 +102,6 @@ export class XliffDocumentBuilder {
   }
 }
 
-export interface XliffFileAttributes extends XliffSizeRestrictionAttributes {
-  id: string;
-}
 export class XliffFileBuilder {
   readonly notes = new XliffNotesBuilder();
   readonly content = new XliffContentBuilder();
@@ -78,10 +136,6 @@ export class XliffFileBuilder {
   }
 }
 
-export interface XliffNoteAttributes {
-  id?: string;
-  category?: string;
-}
 export class XliffNotesBuilder {
   protected notes: XliffNoteBuilder[] = [];
 
@@ -144,10 +198,6 @@ export class XliffContentBuilder {
   }
 }
 
-export interface XliffGroupAttributes extends XliffSizeRestrictionAttributes {
-  id: string;
-  name?: string;
-}
 export class XliffGroupBuilder {
   readonly notes = new XliffNotesBuilder();
   readonly content = new XliffContentBuilder();
@@ -172,10 +222,6 @@ export class XliffGroupBuilder {
   }
 }
 
-export interface XliffUnitAttributes extends XliffSizeRestrictionAttributes {
-  id: string;
-  name?: string;
-}
 export class XliffUnitBuilder {
   readonly notes = new XliffNotesBuilder();
   protected segments: XliffSegmentBuilder[] = [];
@@ -212,9 +258,6 @@ export class XliffUnitBuilder {
   }
 }
 
-export interface XliffSegmentAttributes {
-  id?: string;
-}
 export class XliffSegmentBuilder {
   constructor(
     readonly text: string,
