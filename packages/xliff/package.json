@@ -1,10 +1,7 @@
 {
   "name": "@bscotch/xliff",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A library for building simple XLIFF 2.0 files.",
-  "publishConfig": {
-    "access": "public"
-  },
   "keywords": [
     "xliff",
     "i18n",
@@ -28,5 +25,8 @@
   "devDependencies": {
     "typescript": "5.1.6",
     "xml-formatter": "3.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
