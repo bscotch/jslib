@@ -28,9 +28,9 @@ export class XliffDocumentBuilder {
     return file;
   }
 
-  toXml(): string {
+  toString(): string {
     const filesAsXml = this.files
-      .map((file) => file.toXml())
+      .map((file) => file.toString())
       .filter((x) => !!x);
     assert(filesAsXml.length > 0, 'No files contained content.');
     return `<?xml version="1.0" encoding="UTF-8" ?>\n<xliff version="2.0" srcLang="${
@@ -67,14 +67,14 @@ export class XliffFileBuilder {
     return this.content.addUnit(...args);
   }
 
-  toXml(): string {
+  toString(): string {
     if (!this.content.length) {
       console.warn(`File ${this.attributes.id} has no content. Skipping.`);
       return '';
     }
     return `<file ${attributesToString(
       this.attributes,
-    )}>\n${this.notes.toXml()}${this.content.toXml()}</file>`;
+    )}>\n${this.notes.toString()}${this.content.toString()}</file>`;
   }
 }
 
@@ -90,11 +90,12 @@ export class XliffNotesBuilder {
     return this;
   }
 
-  toXml(): string {
+  toString(): string {
     const notesAsXml = this.notes
-      .map((note) => note.toXml())
+      .map((note) => note.toString())
       .filter((x) => !!x);
-    return notesAsXml.join(' ');
+    if (!notesAsXml.length) return '';
+    return `<notes>${notesAsXml.join(' ')}</notes>`;
   }
 }
 export class XliffNoteBuilder {
@@ -105,7 +106,7 @@ export class XliffNoteBuilder {
     assert(text, 'Note text must be provided.');
   }
 
-  toXml(): string {
+  toString(): string {
     return `<note ${attributesToString(this.attributes)}>${escapeXmlText(
       this.text,
     )}</note>`;
@@ -135,9 +136,9 @@ export class XliffContentBuilder {
     return unit;
   }
 
-  toXml(): string {
+  toString(): string {
     const contentAsXml = this.content
-      .map((content) => content.toXml())
+      .map((content) => content.toString())
       .filter((x) => !!x);
     return contentAsXml.join(' ');
   }
@@ -164,10 +165,10 @@ export class XliffGroupBuilder {
     return this.content.addUnit(...args);
   }
 
-  toXml() {
+  toString() {
     return `<group ${attributesToString(
       this.attributes,
-    )}>${this.notes.toXml()}${this.content.toXml()}</group>`;
+    )}>${this.notes.toString()}${this.content.toString()}</group>`;
   }
 }
 
@@ -179,7 +180,13 @@ export class XliffUnitBuilder {
   readonly notes = new XliffNotesBuilder();
   protected segments: XliffSegmentBuilder[] = [];
 
-  constructor(readonly attributes: XliffUnitAttributes) {}
+  constructor(
+    readonly attributes: XliffUnitAttributes,
+    /** If provided, a segment will be added to this unit with this text for translation. */
+    text?: string,
+  ) {
+    if (text) this.addSegment(text);
+  }
 
   addNote(...args: ConstructorParameters<typeof XliffNoteBuilder>): this {
     this.notes.add(...args);
@@ -192,15 +199,15 @@ export class XliffUnitBuilder {
     return this;
   }
 
-  toXml(): string {
+  toString(): string {
     if (!this.segments.length) {
       console.warn(`Unit ${this.attributes.id} has no segments. Skipping.`);
       return '';
     }
     return `<unit ${attributesToString(
       this.attributes,
-    )}>${this.notes.toXml()}${this.segments
-      .map((segment) => segment.toXml())
+    )}>${this.notes.toString()}${this.segments
+      .map((segment) => segment.toString())
       .join('')}</unit>`;
   }
 }
@@ -214,7 +221,7 @@ export class XliffSegmentBuilder {
     readonly attributes?: XliffSegmentAttributes,
   ) {}
 
-  toXml(): string {
+  toString(): string {
     return `<segment ${attributesToString(
       this.attributes,
     )}><source>${escapeXmlText(this.text)}</source></segment>`;

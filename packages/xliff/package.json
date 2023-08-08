@@ -1,7 +1,12 @@
 {
   "name": "@bscotch/xliff",
+  "description": "A library for building simple XLIFF 2.0 files.",
+  "keywords": [
+    "xliff",
+    "i18n",
+    "l10n"
+  ],
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "exports": {
     ".": {
