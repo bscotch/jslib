@@ -7,6 +7,7 @@
     "i18n",
     "l10n"
   ],
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
