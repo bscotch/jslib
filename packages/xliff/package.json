@@ -7,6 +7,12 @@
     "i18n",
     "l10n"
   ],
+  "homepage": "https://github.com/bscotch/jslib/tree/develop/packages/xliff#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/xliff"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
