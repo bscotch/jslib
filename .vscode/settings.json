@@ -85,7 +85,6 @@
     "subqueue",
     "subqueues"
   ],
-  "eslint.packageManager": "pnpm",
   "eslint.onIgnoredFiles": "warn",
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -99,8 +98,4 @@
   "javascript.preferences.importModuleSpecifierEnding": "js",
   "cSpell.useGitignore": true,
   "cSpell.files": ["**/*.md", "**/src/**/*"]
-  // "terminal.integrated.automationProfile.windows": {
-  //   "path": "powershell.exe",
-  //   "args": ["-NoLogo", "-NoProfile"]
-  // }
 }
