@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/pathy",
-  "version": "2.7.3",
+  "version": "2.7.4",
   "description": "A toolkit for simplifying working with paths and files.",
   "keywords": [
     "path",
