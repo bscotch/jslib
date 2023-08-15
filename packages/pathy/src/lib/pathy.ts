@@ -421,7 +421,11 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
       });
       child = children[0];
     } else {
-      child = (await this.listChildren()).find((c) => c.basename === basename);
+      child = (await this.listChildren()).find((c) =>
+        typeof basename === 'string'
+          ? c.basename === basename
+          : basename.test(c.basename),
+      );
     }
     assert(
       !options?.assert || child,
