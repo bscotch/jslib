@@ -56,8 +56,8 @@
     "watch": "tsc --build --watch"
   },
   "dependencies": {
+    "@bscotch/emitter": "workspace:*",
     "debug": "4.3.4",
-    "eventemitter2": "^6.4.9",
     "tslib": "^2.5.0"
   },
   "devDependencies": {

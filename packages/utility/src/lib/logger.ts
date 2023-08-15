@@ -1,9 +1,9 @@
 import { literal } from './array.js';
-import { createEventEmitter } from './emitter.js';
+import { createEventEmitter } from '@bscotch/emitter';
 
 export type DefaultFormat = [message: string, ...content: any[]];
 
-export type Level = typeof Logger['levels'][number];
+export type Level = (typeof Logger)['levels'][number];
 
 export interface LoggerOptions<Format extends any[]> {
   /**

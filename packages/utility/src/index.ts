@@ -15,7 +15,7 @@ export * from './lib/decorator.js';
 export * from './lib/deepEquals.js';
 export * from './lib/exec.js';
 export * from './lib/files.js';
-export * from './lib/emitter.js';
+export * from '@bscotch/emitter';
 export * from './lib/logger.js';
 export * from './lib/isNodeNativeModule.js';
 export { pointable } from './lib/jsonPointer.js';

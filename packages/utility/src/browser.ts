@@ -5,7 +5,7 @@ export * from './lib/constants.js';
 export * from './lib/dates.js';
 export * from './lib/decorator.js';
 export * from './lib/deepEquals.js';
-export * from './lib/emitter.js';
+export * from '@bscotch/emitter';
 export * from './lib/logger.js';
 export { pointable } from './lib/jsonPointer.js';
 export * from './lib/markdown.js';
