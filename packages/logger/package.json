@@ -1,9 +1,6 @@
 {
   "name": "logger",
-  "version": "0.1.0",
-  "publishConfig": {
-    "access": "public"
-  },
+  "version": "0.2.0",
   "type": "module",
   "exports": {
     ".": {
@@ -20,7 +17,10 @@
     "watch": "tsc --build --watch"
   },
   "dependencies": {
-    "@bscotch/utility": "workspace:*",
-    "@bscotch/emitter": "workspace:*"
+    "@bscotch/emitter": "workspace:*",
+    "@bscotch/utility": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/utility",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "description": "Bscotch Utilities: Methods for common Node.js needs.",
   "keywords": [
     "utility",
