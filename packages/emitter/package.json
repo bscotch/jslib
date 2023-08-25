@@ -1,6 +1,14 @@
 {
   "name": "@bscotch/emitter",
+  "description": "Extension of eventemitter2, adding typed events.",
   "version": "0.2.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/emitter"
+  },
+  "homepage": "https://github.com/bscotch/jslib/tree/develop/packages/emitter#readme",
   "keywords": [
     "event",
     "events",
