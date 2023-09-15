@@ -1,3 +1,5 @@
+import { GitLog } from './repo.types.js';
+
 export interface ManifestGraphOptions {
   /**
    * If `true`, the root manifest will be included in the graph.
@@ -61,17 +63,19 @@ export interface PackageJson {
 
 export interface ManifestInfo {
   /** Absolute path to this manifest file. */
-  path: string;
+  absolutePath: string;
+  /** Relative path to this manifest file from the search root. */
+  relativePath: string;
   /** `true` if this was in the root of the search space when finding packages */
   isRoot: boolean;
   /** The `package.json` contents */
   package: PackageJson;
 }
 
-export interface ListManifestOptions {
+export interface ManifestGitInfo extends ManifestInfo {
   /**
-   * Return objects containing parsed manifests and other metadata
-   * instead of just the paths.
+   * Git logs where the impacted files include
+   * files within this manifest's directory.
    */
-  objectMode?: boolean;
+  logs: GitLog[];
 }

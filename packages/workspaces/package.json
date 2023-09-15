@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "dependency-graph": "^0.11.0",
-    "globby": "^13.2.2"
+    "globby": "^13.2.2",
+    "simple-git": "^3.17.0"
   },
   "devDependencies": {
     "chai": "^4.3.7"
