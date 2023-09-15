@@ -6,7 +6,6 @@ export type {
 } from './deps.types.js';
 export {
   createDependencyGraph,
-  getRepoRoot,
   listManifests,
   listRepoManifests,
 } from './deps.js';

@@ -1,13 +1,11 @@
 import { expect } from 'chai';
 import {
   createDependencyGraph,
-  getRepoRoot,
   listManifests,
   listRepoManifests,
 } from './deps.js';
-import path from 'node:path';
 
-describe('Workspaces', function () {
+describe('Workspace Deps', function () {
   it('can list all workspace manifests', async function () {
     const packages = await listManifests('../..');
     expect(packages).to.contain('package.json');
@@ -22,11 +20,6 @@ describe('Workspaces', function () {
     expect(packages[0].path).to.be.a('string');
     expect(packages[0].package).to.be.an('object');
     expect(packages[0].package.name).to.be.a('string');
-  });
-
-  it('can find the repo root', async function () {
-    const root = await getRepoRoot('.');
-    expect(path.basename(root)).to.equal('jslib');
   });
 
   it('can list all workspace manifests in the repo', async function () {

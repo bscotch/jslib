@@ -1,7 +1,6 @@
 import { globby } from 'globby';
 import fsp from 'node:fs/promises';
 import path from 'node:path';
-import { ok } from 'node:assert';
 import type {
   PackageJson,
   ListManifestOptions,
@@ -9,6 +8,7 @@ import type {
   ManifestGraphOptions,
 } from './deps.types.js';
 import { DepGraph } from 'dependency-graph';
+import { getRepoRoot } from './repo.js';
 
 /**
  * Given a list of manifests, return a graph of how they depend on each other.
@@ -103,28 +103,4 @@ export async function listRepoManifests(fromDir: string) {
   const repoRoot = await getRepoRoot(fromDir);
   const manifests = await listManifests(repoRoot);
   return manifests.map((p) => path.join(repoRoot, p)).sort();
-}
-
-/**
- * Starting from `fromDir`, work backwards to find the git repo
- * root (defined as the first folder found containing a `.git` directory)
- */
-export async function getRepoRoot(fromDir: string) {
-  let rootDir = path.resolve(process.cwd(), fromDir);
-  while (true) {
-    try {
-      const stat = await fsp.stat(path.join(rootDir, '.git'));
-      ok(stat.isDirectory(), `Found .git entry, but it was not a directory`);
-      break;
-    } catch (err) {
-      const parent = path.dirname(rootDir);
-      if (parent === rootDir) {
-        throw new Error(
-          `No .git directory found in "${fromDir}" or any parent directories`,
-        );
-      }
-      rootDir = parent;
-    }
-  }
-  return rootDir;
 }
