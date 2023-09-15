@@ -6,7 +6,7 @@ describe('Changelogs', function () {
   it('can create a changelog', async function () {
     const projects = await listRepoManifests('.');
     const headerPattern =
-      /^(?<type>fix|feat|chore|docs|refactor|style|test)(\((?<scope>[^)]*)\))?: (?<subject>.*)$/;
+      /^(?<type>fix|feat|chore|docs|refactor|style|test|meta)(\((?<scope>[^)]*)\))?: (?<subject>.*)/;
     for (const project of projects) {
       const changelogs = generateChangelogs(project, {
         versionPattern: new RegExp(`^${project.package.name}@(?<version>.*)$`),

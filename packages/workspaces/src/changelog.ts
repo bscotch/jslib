@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import { ManifestGitInfo } from './deps.types.js';
 import { GitLog } from './repo.types.js';
 import semver from 'semver';
@@ -73,28 +74,64 @@ export interface Change<Vars extends Record<string, string[]>> {
   log: GitLog;
 }
 
+function findVersionInLog(
+  log: GitLog,
+  versionPattern: RegExp,
+  versionIsInMessage?: boolean,
+): string | undefined {
+  let version: string | undefined;
+  for (const possibleVersionLocation of versionIsInMessage
+    ? [log.body]
+    : log.tags) {
+    const match = possibleVersionLocation.match(versionPattern);
+    if (match) {
+      const versionMatch = (match.groups?.version || match[1] || match[0]) as
+        | string
+        | undefined;
+      if (versionMatch && semver.valid(versionMatch)) {
+        version = versionMatch;
+        break;
+      }
+    }
+  }
+  return version;
+}
+
 export function generateChangelogs<Vars extends Record<string, string[]>>(
   project: ManifestGitInfo,
   options: ChangelogOptions,
 ) {
   const logs = project.logs;
   const changes: Change<Vars>[] = [];
-  for (const log of logs) {
-    // Find the version
-    let version: string | undefined;
-    for (const possibleVersionLocation of options.versionIsInMessage
-      ? [log.body]
-      : log.tags) {
-      const match = possibleVersionLocation.match(options.versionPattern);
-      if (match) {
-        const versionMatch = (match.groups?.version || match[1] || match[0]) as
-          | string
-          | undefined;
-        if (versionMatch && semver.valid(versionMatch)) {
-          version = versionMatch;
-          break;
-        }
-      }
+  // Assuming the logs are in reverse chronological/topo order,
+  // we want to work backwards to properly set versions
+  // First, find the first version in the logs
+  let version: string | undefined;
+  for (let i = logs.length - 1; i >= 0; i--) {
+    const log = logs[i];
+    version = findVersionInLog(
+      log,
+      options.versionPattern,
+      options.versionIsInMessage,
+    );
+    if (version) break;
+  }
+  // If there were no versions found, use the manifest version
+  version ||= project.package.version;
+  ok(version, `No version found for ${project.package.name}`);
+
+  // Then build the changelogs
+  for (let i = logs.length - 1; i >= 0; i--) {
+    const log = logs[i];
+
+    // Update the version if necessary
+    const newVersion = findVersionInLog(
+      log,
+      options.versionPattern,
+      options.versionIsInMessage,
+    );
+    if (newVersion && semver.gte(newVersion, version)) {
+      version = newVersion;
     }
 
     // Find variables in the tags

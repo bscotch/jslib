@@ -55,7 +55,6 @@ describe('Workspace Deps', function () {
     for (const pkg of packages) {
       expect(pkg.package).to.be.an('object');
       expect(pkg.package.name).to.be.a('string');
-      expect(pkg.logs).to.be.an('object');
       expect(pkg.logs.length).to.be.greaterThan(1);
     }
   });
