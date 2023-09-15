@@ -345,15 +345,19 @@ importers:
 
   packages/workspaces:
     specifiers:
+      '@types/semver': ^7.3.13
       chai: ^4.3.7
       dependency-graph: ^0.11.0
       globby: ^13.2.2
+      semver: ^7.4.0
       simple-git: ^3.17.0
     dependencies:
       dependency-graph: 0.11.0
       globby: 13.2.2
+      semver: 7.4.0
       simple-git: 3.17.0
     devDependencies:
+      '@types/semver': 7.3.13
       chai: 4.3.7
 
   packages/xliff:
