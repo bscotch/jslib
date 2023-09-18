@@ -1,13 +1,7 @@
 {
   "name": "@bscotch/workspaces",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A collection of tools for working with node workspaces and monorepos.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bscotch/jslib.git",
-    "directory": "packages/workspaces"
-  },
-  "license": "MIT",
   "keywords": [
     "graph",
     "dependencies",
@@ -16,6 +10,12 @@
     "changelog",
     "changelogs"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/workspaces"
+  },
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
