@@ -135,6 +135,31 @@ export function generateStructuredChangelogs<Vars extends string>(
   // Then that version applies until we find the next one.
   let version: string | undefined;
 
+  // Since the version may be set in the tags or the message, and
+  // depending on workflow the tags may appear later, we want to grab
+  // the current version from the manifest. If it's gt the first version
+  // we find from parsing, then we'll assume that it's a valid version change.
+  let firstParsedVersion: string | undefined;
+  for (const log of logs) {
+    firstParsedVersion = findVersionInLog(
+      log,
+      options.versionPattern,
+      options.versionIsInMessage,
+    );
+    if (!firstParsedVersion) continue;
+    if (semver.gt(project.package.version, firstParsedVersion)) {
+      version = project.package.version;
+    }
+    break;
+  }
+
+  if (!firstParsedVersion) {
+    // Then this hasn't been published at all. Just use the manifest
+    // version. We can't tell if this version is "done", but it doesn't
+    // matter since it's completely unpublished.
+    version = project.package.version;
+  }
+
   // Then build the changelogs
   for (const log of logs) {
     // See if we're in a new version now
