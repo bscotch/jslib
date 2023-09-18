@@ -1,5 +1,11 @@
 # Changelog - @bscotch/workspaces
 
+## 0.2.3 (2023-09-18)
+
+### Fixes
+
+- Resolved issue caused by commits that have no affected files
+
 ## 0.2.2 (2023-09-18)
 
 ### Features
