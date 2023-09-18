@@ -1,5 +1,6 @@
 {
   "name": "@bscotch/workspaces",
+  "version": "0.2.0",
   "description": "A collection of tools for working with node workspaces and monorepos.",
   "keywords": [
     "graph",
@@ -9,7 +10,6 @@
     "changelog",
     "changelogs"
   ],
-  "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {
