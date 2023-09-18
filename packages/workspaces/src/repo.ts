@@ -32,7 +32,7 @@ export async function listGitLogs(repo = process.cwd()) {
       body: log.body,
       hash: log.hash,
       tags,
-      affected: log.diff!.files.map((diff) => diff.file),
+      affected: log.diff?.files.map((diff) => diff.file) || [],
     };
     return parsed;
   });
