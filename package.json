@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "bump": "turbo run test build && treb version && node scripts/changelog.mjs && git add . && git commit -m \"chore: updated changelogs\"",
+    "bump": "turbo run test build && treb version && node scripts/changelogs.mjs && git add . && git commit -m \"chore: updated changelogs\"",
     "build:all": "turbo run build --force",
     "clean:artifacts": "node ./scripts/nuke-builds.mjs",
     "clean:deps": "node ./scripts/nuke-deps.mjs",
