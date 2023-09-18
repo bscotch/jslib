@@ -5,10 +5,11 @@
     "graph",
     "dependencies",
     "monorepo",
-    "workspaces"
+    "workspaces",
+    "changelog",
+    "changelogs"
   ],
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "exports": {
     ".": {
@@ -33,5 +34,8 @@
   "devDependencies": {
     "@types/semver": "^7.3.13",
     "chai": "^4.3.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

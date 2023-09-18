@@ -1,68 +1,155 @@
-import { ok } from 'assert';
 import { ManifestGitInfo } from './deps.types.js';
 import { GitLog } from './repo.types.js';
 import semver from 'semver';
-import type { ChangelogOptions, Change } from './changelog.types.js';
+import type {
+  ChangelogOptions,
+  Change,
+  ConventionalCommitParserOptions,
+  VersionSection,
+  ConventionalCommitVar,
+  ChangelogRenderFunction,
+  VersionRenderOptions,
+} from './changelog.types.js';
+import { listRepoManifests } from './deps.js';
+import {
+  conventionalCommitsBodyPattern,
+  conventionalCommitsHeaderPattern,
+  isMatch,
+  monorepoVersionPattern,
+} from './utility.js';
+import path from 'node:path';
+import fsp from 'node:fs/promises';
 
-function findVersionInLog(
-  log: GitLog,
-  versionPattern: RegExp,
-  versionIsInMessage?: boolean,
-): string | undefined {
-  let version: string | undefined;
-  for (const possibleVersionLocation of versionIsInMessage
-    ? [log.body]
-    : log.tags) {
-    const match = possibleVersionLocation.match(versionPattern);
-    if (match) {
-      const versionMatch = (match.groups?.version || match[1] || match[0]) as
-        | string
-        | undefined;
-      if (versionMatch && semver.valid(versionMatch)) {
-        version = versionMatch;
-        break;
-      }
-    }
+export async function renderMonorepoConventionalCommits(
+  projects: Map<ManifestGitInfo, VersionSection[]>,
+  render: ChangelogRenderFunction,
+  options?: VersionRenderOptions,
+): Promise<Map<ManifestGitInfo, string | undefined>> {
+  const rendered = new Map<ManifestGitInfo, string | undefined>();
+  const waits: Promise<any>[] = [];
+  for (const [project, versions] of projects) {
+    waits.push(
+      renderConventionalCommits(project, versions, render, options).then((r) =>
+        rendered.set(project, r),
+      ),
+    );
   }
-  return version;
+  await Promise.all(waits);
+  return rendered;
 }
 
-export function generateChangelogs<Vars extends Record<string, string[]>>(
+/**
+ * @returns The rendered changelog as a string (all rendered versions joined by a double-newline)
+ */
+export async function renderConventionalCommits(
+  project: ManifestGitInfo,
+  versions: VersionSection[],
+  render: ChangelogRenderFunction,
+  options?: VersionRenderOptions,
+): Promise<string | undefined> {
+  // Sort by descending version
+  versions = [...versions].sort((a, b) =>
+    semver.rcompare(a.version, b.version),
+  );
+  const rendered = render(project, versions);
+  if (options?.filename && rendered) {
+    const outfile = path.join(
+      path.dirname(project.absolutePath),
+      options.filename,
+    );
+    await fsp.writeFile(outfile, rendered);
+  }
+
+  return rendered;
+}
+
+export async function parseConventionalCommits(
+  project: ManifestGitInfo,
+  config: ConventionalCommitParserOptions,
+): Promise<VersionSection[]> {
+  const changelogs = generateStructuredChangelogs<ConventionalCommitVar>(
+    project,
+    {
+      versionPattern: monorepoVersionPattern(project.package.name),
+      headerPatterns: [conventionalCommitsHeaderPattern],
+      headerVariablePatterns: [conventionalCommitsHeaderPattern],
+      bodyVariablePatterns: [conventionalCommitsBodyPattern],
+    },
+  );
+
+  // Group the changelogs by version and type
+  const projectLogs: VersionSection[] = [];
+  for (const log of changelogs) {
+    const group = config.types.find((t) =>
+      isMatch(log.variables.type[0], t.pattern),
+    )?.group;
+    if (!group) continue;
+
+    const versionSection = projectLogs.find((v) => v.version === log.version);
+    if (versionSection) {
+      // Use the latest date in the group as the version's date
+      versionSection.date =
+        log.log.date > versionSection.date ? log.log.date : versionSection.date;
+      versionSection.groups[group] ||= [];
+      versionSection.groups[group].push(log);
+    } else {
+      projectLogs.push({
+        version: log.version,
+        date: log.log.date,
+        groups: {
+          [group]: [log],
+        },
+      });
+    }
+  }
+  return projectLogs;
+}
+
+export async function parseMonorepoConventionalCommits(
+  cwd = process.cwd(),
+  options: ConventionalCommitParserOptions,
+): Promise<Map<ManifestGitInfo, VersionSection[]>> {
+  const projects = await listRepoManifests(cwd);
+  const projectsChangelogs = new Map<ManifestGitInfo, VersionSection[]>();
+  const waits: Promise<any>[] = [];
+  for (const project of projects) {
+    waits.push(
+      parseConventionalCommits(project, options).then((changelogs) => {
+        projectsChangelogs.set(project, changelogs);
+      }),
+    );
+  }
+  await Promise.all(waits);
+  return projectsChangelogs;
+}
+
+export function generateStructuredChangelogs<Vars extends string>(
   project: ManifestGitInfo,
   options: ChangelogOptions,
 ): Change<Vars>[] {
   const logs = project.logs;
   const changes: Change<Vars>[] = [];
+
   // Assuming the logs are in reverse chronological/topo order,
-  // we want to work backwards to properly set versions
-  // First, find the first version in the logs
+  // we call the version "undefined" until we find the first version.
+  // Then that version applies until we find the next one.
   let version: string | undefined;
-  for (let i = logs.length - 1; i >= 0; i--) {
-    const log = logs[i];
-    version = findVersionInLog(
-      log,
-      options.versionPattern,
-      options.versionIsInMessage,
-    );
-    if (version) break;
-  }
-  // If there were no versions found, use the manifest version
-  version ||= project.package.version;
-  ok(version, `No version found for ${project.package.name}`);
 
   // Then build the changelogs
-  for (let i = logs.length - 1; i >= 0; i--) {
-    const log = logs[i];
-
-    // Update the version if necessary
+  for (const log of logs) {
+    // See if we're in a new version now
     const newVersion = findVersionInLog(
       log,
       options.versionPattern,
       options.versionIsInMessage,
     );
-    if (newVersion && semver.gte(newVersion, version)) {
+    // If we found a new version it should be LOWER than the previous version
+    if (newVersion && (!version || semver.lt(newVersion, version))) {
       version = newVersion;
     }
+
+    // If we don't have a version yet, then we're in UNRELEASED commits!
+    if (!version) continue;
 
     // Find variables in the tags
     const tagVariables: Record<string, string[]> = {};
@@ -129,6 +216,7 @@ export function generateChangelogs<Vars extends Record<string, string[]>>(
                 if (!value) continue;
                 // @ts-expect-error Generic type is too complex to infer
                 change.variables[key] = change.variables[key] || [];
+                // @ts-expect-error Generic type is too complex to infer
                 change.variables[key].push(value);
               }
             }
@@ -140,4 +228,27 @@ export function generateChangelogs<Vars extends Record<string, string[]>>(
     changes.push(...changesInLog);
   }
   return changes;
+}
+
+function findVersionInLog(
+  log: GitLog,
+  versionPattern: RegExp,
+  versionIsInMessage?: boolean,
+): string | undefined {
+  let version: string | undefined;
+  for (const possibleVersionLocation of versionIsInMessage
+    ? [log.body]
+    : log.tags) {
+    const match = possibleVersionLocation.match(versionPattern);
+    if (match) {
+      const versionMatch = (match.groups?.version || match[1] || match[0]) as
+        | string
+        | undefined;
+      if (versionMatch && semver.valid(versionMatch)) {
+        version = versionMatch;
+        break;
+      }
+    }
+  }
+  return version;
 }
