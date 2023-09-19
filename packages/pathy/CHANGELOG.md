@@ -1,5 +1,16 @@
 # Changelog - @bscotch/pathy
 
+## 2.8.0 (2023-09-19)
+
+### Features
+
+- Added "move" method
+- Added aliases for deleting paths, making directories, and listing directory contents
+
+### Fixes
+
+- Removed trace decorators from pathy methods, improving speed of some operations
+
 ## 2.7.4 (2023-08-15)
 
 ### Fixes
