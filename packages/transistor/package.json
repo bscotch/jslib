@@ -32,13 +32,13 @@
   },
   "dependencies": {
     "@bscotch/pathy": "workspace:*",
-    "dotenv": "^16.0.3",
-    "node-fetch": "^3.3.1",
-    "tslib": "^2.5.0"
+    "dotenv": "^16.3.1",
+    "node-fetch": "^3.3.2",
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "marked": "^4.3.0",
-    "rimraf": "^5.0.0",
-    "typescript": "5.0.4"
+    "marked": "^9.0.3",
+    "rimraf": "^5.0.1",
+    "typescript": "5.2.2"
   }
 }
