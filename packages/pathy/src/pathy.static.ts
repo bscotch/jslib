@@ -11,7 +11,6 @@ import nodePath from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'yaml';
 import type { Pathy } from './pathy.js';
-import { trace } from './pathy.lib.js';
 import type {
   PathyFindParentOptions,
   PathyInfix,
@@ -235,7 +234,6 @@ export class PathyStatic {
     );
   }
 
-  @trace
   static resolveRelative(from: PathyOrString, to: PathyOrString): string {
     return PathyStatic.normalize(
       nodePath.win32.relative(
@@ -281,7 +279,6 @@ export class PathyStatic {
    * absolute or relative to the same cwd. Otherwise
    * you'll get unexpected results.
    */
-  @trace
   static findBranchPoint(...paths: PathyOrString[]): string {
     ok(
       paths.length > 1,
@@ -310,7 +307,6 @@ export class PathyStatic {
    * Returns `true` if `parent` is a parent of `child`,
    * or if both are the same path.
    */
-  @trace
   static isParentOf(parent: PathyOrString, child: PathyOrString): boolean {
     [parent, child] = [parent, child].map(PathyStatic.normalize);
     if (parent == child) {

@@ -1,8 +1,6 @@
-import { arrayWrapped, assert } from '@bscotch/utility/browser';
 import fs from 'fs';
 import fse from 'fs-extra';
 import nodePath from 'path';
-import { trace } from './pathy.lib.js';
 import { PathyStatic } from './pathy.static.js';
 import type {
   PathyFindParentOptions,
@@ -13,6 +11,7 @@ import type {
   PathyReadOutput,
   PathyWriteOptions,
 } from './pathy.types.js';
+import { arrayWrapped, assert } from './util.js';
 
 export type {
   PathyListChildrenOptions,
@@ -362,7 +361,6 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
    * (The path must be folder, and the children
    * can be files or folders.)
    */
-  @trace
   async listChildren(): Promise<Pathy[]> {
     assert(await this.isDirectory(), `${this.normalized} is not a directory`);
 
@@ -434,14 +432,12 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
     return child;
   }
 
-  @trace
   async listChildrenRecursively<As = Pathy>(
     options: PathyListChildrenOptions<As> = {},
   ): Promise<As[]> {
     return await Pathy.listChildrenRecursively(this, options);
   }
 
-  @trace
   async findInParents<T = unknown>(
     basename: string,
     options?: PathyFindParentOptions<T>,

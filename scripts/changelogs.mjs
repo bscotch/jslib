@@ -5,7 +5,7 @@ import {
 
 const parsed = await parseMonorepoConventionalCommits('.', {
   types: [
-    { pattern: /^fix|bug(fix)?$/, group: 'Fixes' },
+    { pattern: /^fix|bug(fix)?|perf(ormance)?$/, group: 'Fixes' },
     { pattern: /^feat(ure)?$/, group: 'Features' },
     { pattern: /^docs$/, group: 'Docs' },
   ],
