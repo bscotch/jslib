@@ -354,6 +354,14 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
   async ensureDirectory() {
     await fse.mkdir(this.absolute, { recursive: true });
   }
+  /**
+   * @alias {@link Pathy.ensureDirectory}
+   */
+  readonly ensureDir = this.ensureDirectory;
+  /**
+   * @alias {@link Pathy.ensureDirectory}
+   */
+  readonly mkdir = this.ensureDirectory;
 
   /**
    * List all immediate children of this path.
@@ -369,6 +377,10 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
       return new Pathy(path, this.workingDirectory);
     });
   }
+  /**
+   * @alias {@link Pathy.listChildren}
+   */
+  readonly ls = this.listChildren;
 
   listChildrenSync(): Pathy[] {
     assert(this.isDirectorySync(), `${this.normalized} is not a directory`);
@@ -401,6 +413,10 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
       await fse.rm(this.absolute, options);
     }
   }
+  /**
+   * @alias {@link Pathy.delete}
+   */
+  readonly rm = this.delete;
 
   async listSiblings() {
     const dir = this.up();
