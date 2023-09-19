@@ -1,4 +1,5 @@
 export * from './pathy.js';
+export type * from './pathy.types.js';
 import { Pathy, type PathyOptions } from './pathy.js';
 
 /**

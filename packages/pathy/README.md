@@ -4,6 +4,17 @@ Whether you're trying to normalize between POSIX-style and Windows-style separat
 
 This package provides a single main export, the `Pathy` class, which is an immutable instance representing a path and providing a bunch of useful methods for common path and file operations.
 
+## Features
+
+- **Immutable**. All methods return new instances, so you can chain operations together without worrying about mutating the original.
+- **TypeScript-friendly**. All methods are typed, and the class is generic so you can specify the type of the data that will be read from and written to files.
+- **Automatic file parsing**. When reading a file, it is automatically parsed based on the extension for common, JavaScript-compatible types like JSON, JSONC, JSON5, and YAML.
+- **Automatic file stringification**. Files are also automatically stringified based on the file extension!
+- **Automatic file validation**. Provide a ZOD schema (or anything with a `parse()` function) to guarantee that the file contents are what you claim they are, on both read and write.
+- **Automatic path normalization**. All paths are normalized to use the POSIX path separator (`/`) and to be absolute (even Windows apps support POSIX-style paths). `file:` protocol URLs are automatically converted to paths.
+- **Automatic stringification**. Built-in `toString` and `toJSON` methods make it so that Pathy instances are automatically converted to strings when used in string contexts or JSON-stringified.
+- **Tons of helpers**. Have trouble remembering whether an "extension" includes the dot or not? Want to easily find a config file higher up in the tree? Need to know if a path is a file or a directory? Want to find the common ancestor of two paths? Pathy methods help with all of that and more.
+
 ## Requirements
 
 - Node.JS 16+ (ESM only)

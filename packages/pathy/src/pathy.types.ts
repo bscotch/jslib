@@ -228,7 +228,7 @@ export interface PathyListChildrenOptions<As = Pathy> {
    * (e.g. they are not automatically included when
    * unignored, they just *can* be).
    */
-  unignore?: typeof Pathy.defaultIgnoredDirs[number][];
+  unignore?: (typeof Pathy.defaultIgnoredDirs)[number][];
 
   /**
    * Instead of picking the subset of ignored paths
@@ -299,4 +299,11 @@ export interface PathyInfix {
   name: string;
   infix: string;
   ext: string;
+}
+
+export interface PathyCopyOptions {
+  force?: boolean;
+  maxRetries?: number;
+  recursive?: boolean;
+  retryDelay?: number;
 }

@@ -3,6 +3,7 @@ import fse from 'fs-extra';
 import nodePath from 'path';
 import { PathyStatic } from './pathy.static.js';
 import type {
+  PathyCopyOptions,
   PathyFindParentOptions,
   PathyInfix,
   PathyListChildrenOptions,
@@ -12,13 +13,6 @@ import type {
   PathyWriteOptions,
 } from './pathy.types.js';
 import { arrayWrapped, assert } from './util.js';
-
-export type {
-  PathyListChildrenOptions,
-  PathyOrString,
-  PathyReadOptions,
-  PathyWriteOptions,
-} from './pathy.types.js';
 
 export interface PathyOptions<T> {
   cwd?: PathyOrString;
@@ -399,16 +393,30 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
     await destinationParent.ensureDirectory();
     await fse.copy(this.absolute, destination.absolute, options);
   }
+  /**
+   * @alias {@link Pathy.copy}
+   */
+  readonly cp = this.copy;
+
+  /**
+   * Shorthand for performing a copy to destination, followed by deletion
+   */
+  async move(
+    destination: PathyOrString,
+    options?: fse.CopyOptions & PathyCopyOptions,
+  ) {
+    await this.copy(destination, options);
+    await this.delete(options);
+  }
+  /**
+   * @alias {@link Pathy.move}
+   */
+  readonly mv = this.move;
 
   /**
    * Delete this file.
    */
-  async delete(options?: {
-    force?: boolean;
-    maxRetries?: number;
-    recursive?: boolean;
-    retryDelay?: number;
-  }) {
+  async delete(options?: PathyCopyOptions) {
     if (await fse.pathExists(this.absolute)) {
       await fse.rm(this.absolute, options);
     }
