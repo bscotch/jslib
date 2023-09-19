@@ -6,7 +6,8 @@
     "rootDir": "src",
     "moduleResolution": "NodeNext",
     "baseUrl": "src",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "NodeNext"
   },
   "extends": "../tsconfig.base.json"
 }
