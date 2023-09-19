@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/transistor",
-  "version": "0.2.11",
+  "version": "0.3.0",
   "private": true,
   "description": "A developer-friendly client for the Transistor.fm API.",
   "keywords": [

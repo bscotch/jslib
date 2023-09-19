@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/config",
-  "version": "1.3.8",
+  "version": "1.4.0",
   "description": "A library of helper classes for modeling and managing configuration files, including tsconfig.json and package.json files.",
   "repository": {
     "type": "git",
