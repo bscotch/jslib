@@ -1,10 +1,12 @@
-# Pathy
+# 🛣️ Pathy
 
 Whether you're trying to normalize between POSIX-style and Windows-style separators, sort a bunch of path strings in a useful way, or easily find or read files... working with file paths is a huge pain.
 
 This package provides a single main export, the `Pathy` class, which is an immutable instance representing a path and providing a bunch of useful methods for common path and file operations.
 
-## Features
+## ✨ Features
+
+See the [changelogs](https://github.com/bscotch/jslib/blob/develop/packages/pathy/CHANGELOG.md) for the latest updates.
 
 - **Immutable**. All methods return new instances, so you can chain operations together without worrying about mutating the original.
 - **TypeScript-friendly**. All methods are typed, and the class is generic so you can specify the type of the data that will be read from and written to files.
