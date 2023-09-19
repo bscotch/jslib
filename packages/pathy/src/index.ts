@@ -1,5 +1,5 @@
-export * from './lib/pathy.js';
-import { Pathy, type PathyOptions } from './lib/pathy.js';
+export * from './pathy.js';
+import { Pathy, type PathyOptions } from './pathy.js';
 
 /**
  * Shorthand for `new Pathy(...)`.
