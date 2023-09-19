@@ -1,5 +1,11 @@
 # Changelog - @bscotch/config
 
+## 1.4.0 (2023-09-19)
+
+### Features
+
+- Bumped all external deps
+
 ## 1.3.4 (2023-04-13)
 
 ### Fixes

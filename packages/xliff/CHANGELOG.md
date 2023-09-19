@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.4.0 (2023-09-19)
+
+### Features
+
+- Bumped all external deps
+
 ## 0.3.2 (2023-08-08)
 
 ### Fixes

@@ -1,5 +1,15 @@
 # Changelog - @bscotch/pathy
 
+## 2.9.0 (2023-09-19)
+
+### Docs
+
+- Added changelog link to the README
+
+### Features
+
+- Bumped all deps
+
 ## 2.8.0 (2023-09-19)
 
 ### Features

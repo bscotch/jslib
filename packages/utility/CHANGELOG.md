@@ -1,5 +1,11 @@
 # Changelog - @bscotch/utility
 
+## 7.2.0 (2023-09-19)
+
+### Features
+
+- Bumped all external deps
+
 ## 7.1.0 (2023-08-15)
 
 ### Features

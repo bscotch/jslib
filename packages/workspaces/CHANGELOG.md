@@ -1,5 +1,11 @@
 # Changelog - @bscotch/workspaces
 
+## 0.3.0 (2023-09-19)
+
+### Features
+
+- Bumped all external deps
+
 ## 0.2.3 (2023-09-18)
 
 ### Fixes
