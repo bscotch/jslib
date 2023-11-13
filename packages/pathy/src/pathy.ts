@@ -1,6 +1,7 @@
 import fs from 'fs';
 import fse from 'fs-extra';
 import nodePath from 'path';
+import { rmSafe } from './fsSafe.js';
 import { PathyStatic } from './pathy.static.js';
 import type {
   PathyCopyOptions,
@@ -10,6 +11,7 @@ import type {
   PathyOrString,
   PathyReadOptions,
   PathyReadOutput,
+  PathyRemoveOptions,
   PathyWriteOptions,
 } from './pathy.types.js';
 import { arrayWrapped, assert } from './util.js';
@@ -282,7 +284,7 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
   }
 
   async stat() {
-    return await fse.stat(this.absolute);
+    return await Pathy.stat(this.absolute);
   }
 
   statSync() {
@@ -414,12 +416,10 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
   readonly mv = this.move;
 
   /**
-   * Delete this file.
+   * Delete this path.
    */
-  async delete(options?: PathyCopyOptions) {
-    if (await fse.pathExists(this.absolute)) {
-      await fse.rm(this.absolute, options);
-    }
+  async delete(options?: PathyRemoveOptions) {
+    await rmSafe(this, options);
   }
   /**
    * @alias {@link Pathy.delete}

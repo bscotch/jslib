@@ -10,6 +10,7 @@ import json5 from 'json5';
 import nodePath from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'yaml';
+import { readSafe, statSafe, writeSafe } from './fsSafe.js';
 import type { Pathy } from './pathy.js';
 import type {
   PathyFindParentOptions,
@@ -332,8 +333,8 @@ export class PathyStatic {
     const ignoredDirs = options.unignoreAll
       ? []
       : options.unignore
-      ? (PathyStatic.defaultIgnoredDirs.filter((dir) =>
-          options.unignore?.includes(dir),
+      ? (PathyStatic.defaultIgnoredDirs.filter(
+          (dir) => options.unignore?.includes(dir),
         ) as string[])
       : PathyStatic.defaultIgnoredDirs;
     const [includeExtension, excludeExtension] = [
@@ -503,9 +504,7 @@ export class PathyStatic {
   }
 
   static async stat(filepath: PathyOrString): Promise<Stats> {
-    return typeof filepath == 'string'
-      ? await fse.stat(filepath)
-      : filepath.stat();
+    return await statSafe(filepath);
   }
 
   static async exists(filepath: PathyOrString): Promise<boolean> {
@@ -574,7 +573,7 @@ export class PathyStatic {
     ) {
       serialized += '\n';
     }
-    await fse.writeFile(filepath, serialized);
+    await writeSafe(filepath, serialized);
   }
 
   /**
@@ -616,7 +615,7 @@ export class PathyStatic {
       typeof options?.parse == 'function' ? options.parse : undefined;
 
     // Handle the binary case
-    const binary = await fse.readFile(filepath.toString());
+    const binary = await readSafe(filepath, options);
 
     if (options?.encoding === false) {
       if (customParser) {

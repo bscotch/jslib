@@ -17,16 +17,21 @@ export function arrayWrapped<T>(
 }
 
 export class PathyError extends Error {
-  constructor(message: string, asserter?: Function) {
+  constructor(message: string, cause?: any, asserter?: Function) {
     super(message);
     this.name = 'PathyError';
+    this.cause = cause;
     Error.captureStackTrace(this, asserter || this.constructor);
   }
 }
 
-export function assert(claim: any, message: string): asserts claim {
+export function assert(
+  claim: any,
+  message: string,
+  cause?: any,
+): asserts claim {
   if (!claim) {
-    throw new PathyError(message, assert);
+    throw new PathyError(message, cause, assert);
   }
 }
 

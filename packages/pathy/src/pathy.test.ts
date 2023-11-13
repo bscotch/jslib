@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { z } from 'zod';
+import { rmSafe, statSafe } from './fsSafe.js';
 import { Pathy } from './pathy.js';
 import { PathyStatic } from './pathy.static.js';
 
@@ -10,7 +11,28 @@ type Content = z.infer<typeof contentSchema>;
 const contentSchema = z.object({ hello: z.literal('world') }).strict();
 const exts = ['json', 'json5', 'jsonc', 'yaml', 'yml'];
 
+async function assertThrows(fn: Function, message: string) {
+  try {
+    await fn();
+  } catch {
+    return;
+  }
+  throw new Error(message);
+}
+
 describe('Pathy', function () {
+  it('can errors when statting a missing file', async function () {
+    const path = new Pathy('missing');
+    assertThrows(async () => {
+      await statSafe(path);
+    }, `Failed to stat file "${path.toString()}"`);
+  });
+
+  it('can "remove" missing paths without error', async function () {
+    const path = new Pathy('missing');
+    await rmSafe(path);
+  });
+
   it('can normalize paths', function () {
     expect(PathyStatic.normalize('a/b/c//../d/')).to.equal('a/b/d');
     expect(PathyStatic.normalize('/a/b/.//c//../d//')).to.equal('/a/b/d');

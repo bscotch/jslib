@@ -29,7 +29,7 @@ export interface PathyReadOptions<
   Fallback,
   Encoding extends PathyReadEncoding,
   Schema extends PathySchema<Parsed> | never,
-> {
+> extends FileRetryOptions {
   /**
    * The file encoding. If this is false,
    * Pathy will leave the file contents as a buffer.
@@ -84,6 +84,21 @@ export interface PathyReadOptions<
    * this schema (Zod-compatible).
    */
   schema?: Schema;
+}
+
+export interface FileRetryOptions {
+  /**
+   * If there is an error and this is non-falsey, the read operation
+   * will be attempted again up to this number of times.
+   * @default 0
+   */
+  maxRetries?: number;
+
+  /**
+   * The time (in milliseconds) to wait between read-retry attempts.
+   * @default 20
+   */
+  retryDelayMillis?: number;
 }
 
 export interface PathyWriteOptions {
@@ -306,4 +321,16 @@ export interface PathyCopyOptions {
   maxRetries?: number;
   recursive?: boolean;
   retryDelay?: number;
+}
+
+export interface PathyRemoveOptions {
+  force?: boolean;
+  maxRetries?: number;
+  recursive?: boolean;
+  retryDelay?: number;
+  /**
+   * By default, if the target path doesn't exist no error is thrown.
+   * Set this to `true` to throw an error if the target path doesn't exist.
+   */
+  throwIfMissing?: boolean;
 }
