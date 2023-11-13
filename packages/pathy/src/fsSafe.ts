@@ -29,6 +29,7 @@ export async function readSafe(
       _throwIfMissing(err);
       error = new PathyError(`Failed to read file "${path.toString()}"`, err);
       tries++;
+      error.tries = tries;
       await new Promise((resolve) => setTimeout(resolve, retryDelayMillis));
       continue;
     }
@@ -54,6 +55,7 @@ export async function writeSafe(
     } catch (err) {
       error = new PathyError(`Failed to write file "${path.toString()}"`, err);
       tries++;
+      error.tries = tries;
       await new Promise((resolve) => setTimeout(resolve, retryDelayMillis));
       continue;
     }
@@ -94,6 +96,7 @@ export async function statSafe(
       _throwIfMissing(err);
       error = new PathyError(`Failed to stat file "${path.toString()}"`, err);
       tries++;
+      error.tries = tries;
       await new Promise((resolve) => setTimeout(resolve, retryDelayMillis));
       continue;
     }
@@ -123,6 +126,7 @@ export async function rmSafe(
       }
       error = new PathyError(`Failed to remove "${path.toString()}"`, err);
       tries++;
+      error.tries = tries;
       await new Promise((resolve) => setTimeout(resolve, retryDelayMillis));
       continue;
     }

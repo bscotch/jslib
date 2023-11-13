@@ -17,6 +17,8 @@ export function arrayWrapped<T>(
 }
 
 export class PathyError extends Error {
+  public tries?: number;
+
   constructor(message: string, cause?: any, asserter?: Function) {
     super(message);
     this.name = 'PathyError';
