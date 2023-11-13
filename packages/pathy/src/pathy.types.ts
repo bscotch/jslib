@@ -101,7 +101,7 @@ export interface FileRetryOptions {
   retryDelayMillis?: number;
 }
 
-export interface PathyWriteOptions {
+export interface PathyWriteOptions extends FileRetryOptions {
   /**
    * {@link Pathy} will attempt to serialize the file,
    * based on its extension. Serialization methods may be added
