@@ -1,5 +1,11 @@
 # Changelog - @bscotch/pathy
 
+## 2.11.0 (2023-11-13)
+
+### Features
+
+- Now exporting 'safe' functions to enable retries of file operations
+
 ## 2.10.1 (2023-11-13)
 
 ### Fixes
