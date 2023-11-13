@@ -1,5 +1,12 @@
 # Changelog - @bscotch/pathy
 
+## 2.10.1 (2023-11-13)
+
+### Fixes
+
+- Added a 'tries' field to "safe" file i/o to help debug when things go wrong.
+- Added missing retry options for file writing
+
 ## 2.10.0 (2023-11-13)
 
 ### Features
