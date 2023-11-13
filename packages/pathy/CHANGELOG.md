@@ -1,5 +1,11 @@
 # Changelog - @bscotch/pathy
 
+## 2.10.0 (2023-11-13)
+
+### Features
+
+- Added more retry options for file io
+
 ## 2.9.0 (2023-09-19)
 
 ### Docs
