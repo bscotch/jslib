@@ -1,3 +1,4 @@
+export { existsSafe, readSafe, rmSafe, statSafe, writeSafe } from './fsSafe.js';
 export * from './pathy.js';
 export type * from './pathy.types.js';
 import { Pathy, type PathyOptions } from './pathy.js';
