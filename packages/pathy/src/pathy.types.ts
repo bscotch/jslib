@@ -174,7 +174,7 @@ export interface PathyFindParentOptions<T = unknown> {
   test?: (path: Pathy<T>) => any;
 }
 
-export interface PathyListChildrenOptions<As = Pathy> {
+export interface PathyListChildrenOptions<As = Pathy> extends FileRetryOptions {
   /**
    * If provided, filter returned filepaths based
    * on the result of calling this function on them.
@@ -306,6 +306,13 @@ export interface PathyListChildrenOptions<As = Pathy> {
    * If set to `'only'`, only directories will be returned.
    */
   includeDirs?: boolean | 'only';
+
+  /**
+   * If there is an error trying to stat a file (e.g. a permissions error), what should we do?
+   *
+   * @default 'skip'
+   */
+  onError?: 'throw' | 'skip';
 }
 
 export type PathyOrString = string | Pathy;

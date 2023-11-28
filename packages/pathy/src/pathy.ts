@@ -4,6 +4,7 @@ import nodePath from 'path';
 import { rmSafe } from './fsSafe.js';
 import { PathyStatic } from './pathy.static.js';
 import type {
+  FileRetryOptions,
   PathyCopyOptions,
   PathyFindParentOptions,
   PathyInfix,
@@ -259,9 +260,11 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
   /**
    * Whether or not a file/directory exists at this path.
    */
-  async exists(options?: { assert?: boolean }): Promise<boolean> {
+  async exists(
+    options?: { assert?: boolean } & FileRetryOptions,
+  ): Promise<boolean> {
     try {
-      await this.stat();
+      await this.stat(options);
       return true;
     } catch {
       if (options?.assert) {
@@ -283,8 +286,8 @@ export class Pathy<FileContent = unknown> extends PathyStatic {
     }
   }
 
-  async stat() {
-    return await Pathy.stat(this.absolute);
+  async stat(options?: FileRetryOptions) {
+    return await Pathy.stat(this.absolute, options);
   }
 
   statSync() {

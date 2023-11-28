@@ -13,6 +13,7 @@ import yaml from 'yaml';
 import { readSafe, statSafe, writeSafe } from './fsSafe.js';
 import type { Pathy } from './pathy.js';
 import type {
+  FileRetryOptions,
   PathyFindParentOptions,
   PathyInfix,
   PathyListChildrenOptions,
@@ -366,9 +367,9 @@ export class PathyStatic {
         // stat administrative files etc. In those
         // cases, treat those as if they were ignored.
         try {
-          await child.stat();
+          await child.stat(options);
         } catch (err: any) {
-          if (err.code === 'EPERM') {
+          if (options.onError !== 'throw') {
             continue;
           }
           throw err;
@@ -503,13 +504,19 @@ export class PathyStatic {
     return Object.entries(fileType).find(([, value]) => value)?.[0];
   }
 
-  static async stat(filepath: PathyOrString): Promise<Stats> {
-    return await statSafe(filepath);
+  static async stat(
+    filepath: PathyOrString,
+    options?: FileRetryOptions,
+  ): Promise<Stats> {
+    return await statSafe(filepath, options);
   }
 
-  static async exists(filepath: PathyOrString): Promise<boolean> {
+  static async exists(
+    filepath: PathyOrString,
+    options?: FileRetryOptions,
+  ): Promise<boolean> {
     try {
-      await PathyStatic.stat(filepath);
+      await PathyStatic.stat(filepath, options);
       return true;
     } catch {
       return false;
@@ -602,7 +609,9 @@ export class PathyStatic {
         ? options.schema.parse(fileContent)
         : (fileContent as any);
     ok(doesExist || hasFallback, `File does not exist: ${filepath}`);
-    const fileInfo = doesExist ? await PathyStatic.stat(filepath) : undefined;
+    const fileInfo = doesExist
+      ? await PathyStatic.stat(filepath, options)
+      : undefined;
     const isDirectory = doesExist && fileInfo!.isDirectory();
     ok(!isDirectory, `Expected file, found directory: ${filepath}`);
     if (!doesExist) {

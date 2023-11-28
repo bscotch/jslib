@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { rmSafe, statSafe } from './fsSafe.js';
 import { Pathy } from './pathy.js';
 import { PathyStatic } from './pathy.static.js';
+import { pathy } from './index.js';
 
 const tempPath = new Pathy('tmp');
 await tempPath.ensureDirectory();
@@ -21,6 +22,27 @@ async function assertThrows(fn: Function, message: string) {
 }
 
 describe('Pathy', function () {
+  // NOTE: This test is for a Windows issue that is hard to create
+  // a test for, so this assume some stuff about the local environment.
+  // Should be skipped on CI and in general!
+  xit('can skip a path on error', async function () {
+    const path = pathy(process.env.PROGRAMFILES);
+    await path.exists({ assert: true });
+    assertThrows(
+      async () =>
+        await path.listChildrenRecursively({
+          onError: 'throw',
+          maxDepth: 1,
+        }),
+      `Should have thrown`,
+    );
+    const paths = await path.listChildrenRecursively({
+      onError: 'skip',
+      maxDepth: 1,
+    });
+    expect(paths.length).to.be.greaterThan(10);
+  });
+
   it('can errors when statting a missing file', async function () {
     const path = new Pathy('missing');
     assertThrows(async () => {

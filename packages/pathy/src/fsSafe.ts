@@ -118,7 +118,7 @@ export async function rmSafe(
       const stats = await fsp.rm(path.toString(), options);
       return stats;
     } catch (err) {
-      if (_isMissingError(err)) {
+      if (isMissingError(err)) {
         if (options?.throwIfMissing) {
           throw err;
         }
@@ -150,12 +150,24 @@ function cleanRetryOptions(
   return { maxRetries, retryDelayMillis };
 }
 
-function _isMissingError(err: any) {
-  return err instanceof Error && 'code' in err && err.code === 'ENOENT';
+export function isMissingError(err: any): boolean {
+  if (!err || typeof err !== 'object') return false;
+  return (
+    (err instanceof Error && 'code' in err && err.code === 'ENOENT') ||
+    ('cause' in err && isMissingError(err.cause))
+  );
+}
+
+export function isPermissionsError(err: any): boolean {
+  if (!err || typeof err !== 'object') return false;
+  return (
+    (err instanceof Error && 'code' in err && err.code === 'EPERM') ||
+    ('cause' in err && isPermissionsError(err.cause))
+  );
 }
 
 function _throwIfMissing(err: any) {
-  if (_isMissingError(err)) {
+  if (isMissingError(err)) {
     throw err;
   }
 }
