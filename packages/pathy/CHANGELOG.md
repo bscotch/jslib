@@ -1,5 +1,11 @@
 # Changelog - @bscotch/pathy
 
+## 2.12.0 (2023-11-28)
+
+### Features
+
+- Added retry and skip options when recursively listing paths
+
 ## 2.11.0 (2023-11-13)
 
 ### Features
