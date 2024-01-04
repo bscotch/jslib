@@ -130,7 +130,7 @@ export class XliffFileBuilder {
       console.warn(`File ${this.attributes.id} has no content. Skipping.`);
       return '';
     }
-    return `<file ${attributesToString(
+    return `<file${attributesToString(
       this.attributes,
     )}>\n${this.notes.toString()}${this.content.toString()}</file>`;
   }
@@ -161,7 +161,7 @@ export class XliffNoteBuilder {
   }
 
   toString(): string {
-    return `<note ${attributesToString(this.attributes)}>${escapeXmlText(
+    return `<note${attributesToString(this.attributes)}>${escapeXmlText(
       this.text,
     )}</note>`;
   }
@@ -216,7 +216,7 @@ export class XliffGroupBuilder {
   }
 
   toString() {
-    return `<group ${attributesToString(
+    return `<group${attributesToString(
       this.attributes,
     )}>${this.notes.toString()}${this.content.toString()}</group>`;
   }
@@ -250,7 +250,7 @@ export class XliffUnitBuilder {
       console.warn(`Unit ${this.attributes.id} has no segments. Skipping.`);
       return '';
     }
-    return `<unit ${attributesToString(
+    return `<unit${attributesToString(
       this.attributes,
     )}>${this.notes.toString()}${this.segments
       .map((segment) => segment.toString())
@@ -265,7 +265,7 @@ export class XliffSegmentBuilder {
   ) {}
 
   toString(): string {
-    return `<segment ${attributesToString(
+    return `<segment${attributesToString(
       this.attributes,
     )}><source>${escapeXmlText(this.text)}</source></segment>`;
   }

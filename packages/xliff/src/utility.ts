@@ -24,7 +24,7 @@ export function attributesToString(
     ([_, value]) => value !== undefined,
   );
   if (entries.length === 0) return '';
-  return `${entries
+  return ` ${entries
     .map(([key, value]) => `${key}="${escapeXmlText(`${value}`)}"`)
     .join(' ')}`;
 }
