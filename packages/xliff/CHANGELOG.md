@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.4.2 (2024-01-04)
+
+### Fixes
+
+- Removed excess spaces in attribute-less Xliff tags
+
 ## 0.4.1 (2024-01-04)
 
 ### Fixes
