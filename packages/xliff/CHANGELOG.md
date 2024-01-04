@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.4.3 (2024-01-04)
+
+### Fixes
+
+- Actually removed excess spaces for real this time.
+
 ## 0.4.2 (2024-01-04)
 
 ### Fixes
