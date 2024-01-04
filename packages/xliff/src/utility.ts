@@ -20,8 +20,11 @@ export function attributesToString(
   attributes: Record<string, any> | undefined,
 ): string {
   if (!attributes) return '';
-  return `${Object.entries(attributes)
-    .filter(([_, value]) => value !== undefined)
+  const entries = Object.entries(attributes).filter(
+    ([_, value]) => value !== undefined,
+  );
+  if (entries.length === 0) return '';
+  return `${entries
     .map(([key, value]) => `${key}="${escapeXmlText(`${value}`)}"`)
     .join(' ')}`;
 }
