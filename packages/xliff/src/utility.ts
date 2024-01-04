@@ -21,6 +21,7 @@ export function attributesToString(
 ): string {
   if (!attributes) return '';
   return `${Object.entries(attributes)
+    .filter(([_, value]) => value !== undefined)
     .map(([key, value]) => `${key}="${escapeXmlText(`${value}`)}"`)
     .join(' ')}`;
 }
