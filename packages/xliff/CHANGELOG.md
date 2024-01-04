@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.4.1 (2024-01-04)
+
+### Fixes
+
+- Removed undefined values from Xliff attributes
+
 ## 0.4.0 (2023-09-19)
 
 ### Features
