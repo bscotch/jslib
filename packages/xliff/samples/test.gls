@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glossary version="1.0" srcLang="en-US" xmlns="http://www.maxprograms.com/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.maxprograms.com/glossml/GlossML.xsd">
+  <glossentry>
+    <comment>
+      comment1
+    </comment>
+    <langentry xml:lang="en-US">
+      <term>
+        term1
+      </term>
+      <definition>
+        definition1
+      </definition>
+    </langentry>
+  </glossentry>
+  <glossentry>
+    <langentry xml:lang="en-US">
+      <term>
+        term2
+      </term>
+    </langentry>
+  </glossentry>
+  <glossentry>
+    <comment>
+      comment3
+    </comment>
+    <langentry xml:lang="en-US">
+      <term>
+        term3
+      </term>
+    </langentry>
+  </glossentry>
+</glossary>

@@ -1,7 +1,7 @@
 import { ok } from 'assert';
 import fs from 'fs';
-import formatXml from 'xml-formatter';
-import { createXliffDocument } from './builder.js';
+import { format } from './utility.test.js';
+import { createXliffDocument } from './xliff.js';
 
 describe('XLIFF Builder', function () {
   it('can build an XLIFF document', function () {
@@ -15,9 +15,7 @@ describe('XLIFF Builder', function () {
         'Stuff to translate!',
       )
       .addNote('This is a "note"!');
-    const asString = formatXml(doc.toString(), { indentation: '  ' });
     const expected = fs.readFileSync('samples/test.xlf', 'utf8');
-    ok(asString === expected);
-    // fs.writeFileSync('test.xlf', );
+    ok(format(doc) === format(expected));
   });
 });

@@ -2,6 +2,9 @@
 
 import { assert, attributesToString, escapeXmlText } from './utility.js';
 
+export const xliffExtension = 'xlf';
+export const xliffMimetype = 'application/xliff+xml';
+
 export function createXliffDocument(
   ...args: ConstructorParameters<typeof XliffDocumentBuilder>
 ) {

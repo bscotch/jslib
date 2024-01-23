@@ -1,1 +1,2 @@
-export * from './builder.js';
+export * from './glossml.js';
+export * from './xliff.js';
