@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/xliff",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A library for building simple XLIFF 2.0 and GlossML 1.0 files for hand-off to translators.",
   "keywords": [
     "xliff",
@@ -33,12 +33,12 @@
     "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
     "watch": "tsc --build --watch"
   },
+  "dependencies": {
+    "fast-xml-parser": "^4.3.4"
+  },
   "devDependencies": {
     "typescript": "5.2.2",
     "xml-formatter": "3.5.0"
-  },
-  "dependencies": {
-    "fast-xml-parser": "^4.3.4"
   },
   "publishConfig": {
     "access": "public"
