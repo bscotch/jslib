@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.6.0 (2024-02-09)
+
+### Features
+
+- Added support for Xliff parsing
+
 ## 0.5.0 (2024-01-23)
 
 ### Features
