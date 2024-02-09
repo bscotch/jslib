@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="2.0" srcLang="en-us" xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">
+<xliff version="2.0" srcLang="en-us" xmlns="urn:oasis:names:tc:xliff:document:2.0"
+  xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">
   <file id="file1">
+    <notes>
+      <note id="root-note">
+        This is a root note!
+      </note>
+    </notes>
+    <unit id="root-unit">
+      <segment>
+        <source>
+          This is a root segment!
+        </source>
+        <target>
+          This is a translated root segment!
+        </target>
+      </segment>
+    </unit>
     <group id="group1">
       <group id="Nested">
         <unit id="unit1" slr:sizeRestriction="255">

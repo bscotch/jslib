@@ -1,6 +1,6 @@
-# XLIFF & GlossML Builder
+# Simple XLIFF & GlossML Builder/Parser
 
-A library for programmatically building simple [XLIFF 2.0](https://dev.maxprograms.com/Validation/) and [GlossML 1.0](https://www.maxprograms.com/articles/glossml.html) files, assisted by Typescript.
+A library for programmatically building and parsing simple [XLIFF 2.0](https://dev.maxprograms.com/Validation/) and [GlossML 1.0](https://www.maxprograms.com/articles/glossml.html) files, assisted by Typescript.
 
 ## Usage
 
@@ -49,6 +49,14 @@ Produces the following XLIFF (after formatting):
     </group>
   </file>
 </xliff>
+```
+
+This package also provides an XLIFF parser that does some extra work on top of plain XML parsing, to provide a simpler JavaScript object format with meaningful types. Note that it doesn't support *all* features of XLIFF (e.g. `<other/>`, `<originalData>`, and some other tags are skipped).
+
+```ts
+import { parseXliff } from '@bscotch/xliff';
+
+const asObj = parseXliff(yourXliffString);
 ```
 
 ### GlossML

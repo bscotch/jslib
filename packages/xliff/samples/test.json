@@ -1,0 +1,59 @@
+{
+  "version": "2.0",
+  "srcLang": "en-us",
+  "xmlns": "urn:oasis:names:tc:xliff:document:2.0",
+  "xmlns:slr": "urn:oasis:names:tc:xliff:sizerestriction:2.0",
+  "files": [
+    {
+      "id": "file1",
+      "notes": [
+        {
+          "id": "root-note",
+          "note": "This is a root note!"
+        }
+      ],
+      "groups": [
+        {
+          "id": "group1",
+          "notes": [],
+          "groups": [
+            {
+              "id": "Nested",
+              "notes": [],
+              "groups": [],
+              "units": [
+                {
+                  "id": "unit1",
+                  "slr:sizeRestriction": "255",
+                  "notes": [
+                    {
+                      "note": "This is a \"note\"!"
+                    }
+                  ],
+                  "segments": [
+                    {
+                      "source": "Stuff to translate!"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "units": []
+        }
+      ],
+      "units": [
+        {
+          "id": "root-unit",
+          "notes": [],
+          "segments": [
+            {
+              "source": "This is a root segment!",
+              "target": "This is a translated root segment!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

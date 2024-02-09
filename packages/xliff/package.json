@@ -37,6 +37,9 @@
     "typescript": "5.2.2",
     "xml-formatter": "3.5.0"
   },
+  "dependencies": {
+    "fast-xml-parser": "^4.3.4"
+  },
   "publishConfig": {
     "access": "public"
   }
