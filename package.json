@@ -64,7 +64,7 @@
     },
     "vscodeWorkspaceConfigPath": false
   },
-  "packageManager": "pnpm@7.28.0",
+  "packageManager": "pnpm@8.15.1",
   "workspaces": [
     "packages/*"
   ]
