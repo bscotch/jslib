@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/xliff",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A library for building simple XLIFF 2.0 and GlossML 1.0 files for hand-off to translators.",
   "keywords": [
     "xliff",
