@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.7.0 (2024-02-12)
+
+### Features
+
+- Added Xliff attributes to the doc constructor, so it's not just limited to srcLang
+
 ## 0.6.0 (2024-02-09)
 
 ### Features
