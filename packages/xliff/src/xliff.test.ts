@@ -25,6 +25,7 @@ describe('XLIFF Builder', function () {
         'Stuff to translate!',
       )
       .addNote('This is a "note"!');
+    console.log(format(doc));
     ok(format(doc) === format(sample));
   });
 });

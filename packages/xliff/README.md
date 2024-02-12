@@ -29,7 +29,7 @@ Produces the following XLIFF (after formatting):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="2.0" srcLang="en-us" xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">
+<xliff version="2.0" srcLang="en-US" xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">
   <file id="file1">
     <group id="group1">
       <group id="Nested">

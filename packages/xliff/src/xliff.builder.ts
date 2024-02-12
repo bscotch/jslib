@@ -1,5 +1,6 @@
 import { assert, attributesToString, escapeXmlText } from './utility.js';
 import type {
+  XliffAttributes,
   XliffFileAttributes,
   XliffGroupAttributes,
   XliffNoteAttributes,
@@ -9,7 +10,17 @@ import type {
 
 export class XliffDocumentBuilder {
   protected files: XliffFileBuilder[] = [];
-  constructor(readonly srcLang = 'en-us') {}
+  public attributes: XliffAttributes = {};
+
+  constructor(srcLang?: string);
+  constructor(attributes?: XliffAttributes);
+  constructor(attributes?: XliffAttributes | string) {
+    this.attributes =
+      typeof attributes === 'string'
+        ? { srcLang: attributes }
+        : { ...attributes } || {};
+    this.attributes.srcLang ||= 'en-US';
+  }
 
   addFile(attributes: XliffFileAttributes): XliffFileBuilder {
     const file = new XliffFileBuilder(attributes);
@@ -22,9 +33,9 @@ export class XliffDocumentBuilder {
       .map((file) => file.toString())
       .filter((x) => !!x);
     assert(filesAsXml.length > 0, 'No files contained content.');
-    return `<?xml version="1.0" encoding="UTF-8" ?>\n<xliff version="2.0" srcLang="${
-      this.srcLang
-    }" xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">${filesAsXml.join(
+    return `<?xml version="1.0" encoding="UTF-8" ?>\n<xliff version="2.0"${attributesToString(
+      this.attributes,
+    )} xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">${filesAsXml.join(
       ' ',
     )}</xliff>`;
   }
