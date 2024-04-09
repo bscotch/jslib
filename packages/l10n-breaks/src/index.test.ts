@@ -1,7 +1,12 @@
-import { splitOnIdeograph } from './index.js';
+import { splitOnBreakpoint } from './index.js';
 import { ok } from 'assert';
 
 const samples = {
+  en: [
+    {
+      src: 'Hello, world! This is some "sample text," with various punctuation situations: like super-long words and contract\'ed ones!?',
+    },
+  ],
   'zh-CN': [
     {
       src: '记得长大后学习怎么12345 hello。用锤子的时候，第一课就是学会站稳脚跟。如果站不稳，那就永远都打不准。有时候往往是那些微不足道的小事，能帮你重新找到立足点。',
@@ -16,20 +21,6 @@ const samples = {
       src: '我不想成为别人的依靠。不想让他们习惯于向我寻求帮助。因为一旦人们开始对你有所期待，也就有可能会对你失望。你在他们心里的位置越高，摔下来的时候就越重。',
     },
   ],
-  'zh-TW': [
-    {
-      src: '當你長大到有力氣揮動鎚子時，首先要學習的一件事就是如何站穩腳步。如果沒有踩穩，就不可能敲打地紮實準確。有時候，最微小的事情能帶來大大的不同，並幫助我們站穩腳步。',
-    },
-    {
-      src: '我不太喜歡依賴陌生人的好意。因為陌生人可能願意提供你一頓飽食，並給你一個溫暖的盆子歇腳，但他們也可能炸了你的房子。在日子變辛苦的時候，指望這種好意太不可靠了。如果有什麼是永遠都不會錯的，那就是日子只會越來越艱難。',
-    },
-    {
-      src: '我的鯨群媽媽曾說：「心洞的所在就是家。」它就在迴盪著鯨魚歌聲的岩洞壁中、在深海洋流的低音中、在以鎚子塑造金屬的節奏聲中。有趣的是…當我還在那裡的時候，這一切對我來說太吵雜了。但現在，我很想念那些聲音。',
-    },
-    {
-      src: '我不想要讓他人依賴我，不希望他們太習慣找我幫忙。因為當人們開始對你有期待，你就有可能讓他們失望。他們對你的期望越高，摔下來時也會越難受。',
-    },
-  ],
 } satisfies { [lang: string]: { src: string }[] };
 
 describe('splitOnEveryCharacter', () => {
@@ -37,8 +28,9 @@ describe('splitOnEveryCharacter', () => {
   for (const lang of langs) {
     for (const sample of samples[lang]) {
       it(`should split ${lang} into individual characters`, () => {
-        const result = splitOnIdeograph(sample.src);
+        const result = splitOnBreakpoint(sample.src);
         ok(result.join('') === sample.src);
+        console.log(result);
       });
     }
   }

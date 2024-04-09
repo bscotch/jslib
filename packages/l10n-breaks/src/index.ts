@@ -28,6 +28,7 @@ export const punctuation = {
     '}', // Right Curly Bracket
     '"', // Quotation Mark
     "'", // Single Quote
+    ' ', // Space
   ],
   noRightBreak: [
     '（', // Fullwidth Left Parenthesis
@@ -58,7 +59,7 @@ export const punctuation = {
  *
  * (See the {@link punctuation} rules.)
  */
-export function splitOnIdeograph(text: string) {
+export function splitOnBreakpoint(text: string) {
   const result = [];
   const chars = [...text];
   for (let i = 0; i < chars.length; i++) {
@@ -71,7 +72,9 @@ export function splitOnIdeograph(text: string) {
     if (
       punctuation.noLeftBreak.includes(char) ||
       punctuation.noRightBreak.includes(priorChar) ||
-      (isNotIdeographic(char) && isNotIdeographic(priorChar))
+      (!punctuation.noLeftBreak.includes(priorChar) &&
+        isNotIdeographic(char) &&
+        isNotIdeographic(priorChar))
     ) {
       result[result.length - 1] += char;
       continue;
