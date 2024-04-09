@@ -31,9 +31,6 @@
     "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
     "watch": "tsc --build --watch"
   },
-  "dependencies": {
-    "budoux": "0.6.2"
-  },
   "publishConfig": {
     "access": "public"
   }
