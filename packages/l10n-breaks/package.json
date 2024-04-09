@@ -1,0 +1,40 @@
+{
+  "name": "@bscotch/l10n-breaks",
+  "version": "0.1.0",
+  "description": "Helpers for preprocessing text to determine linebreak locations.",
+  "keywords": [
+    "l10n",
+    "i18n",
+    "newline",
+    "break",
+    "linebreak"
+  ],
+  "homepage": "https://github.com/bscotch/jslib/tree/develop/packages/l10n-breaks#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bscotch/jslib.git",
+    "directory": "packages/l10n-breaks"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "test": "mocha --config ../../config/.mocharc.cjs",
+    "test:dev": "mocha --config ../../config/.mocharc.cjs --forbid-only=false --parallel=false --timeout=9999999999",
+    "watch": "tsc --build --watch"
+  },
+  "dependencies": {
+    "budoux": "0.6.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
