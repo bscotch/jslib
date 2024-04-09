@@ -1,6 +1,6 @@
 {
   "name": "@bscotch/l10n-breaks",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Helpers for preprocessing text to determine linebreak locations.",
   "keywords": [
     "l10n",
