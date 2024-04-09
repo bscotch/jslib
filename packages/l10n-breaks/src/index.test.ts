@@ -1,4 +1,4 @@
-import { splitOnBreakpoint } from './index.js';
+import { splitOnBreakpoints } from './index.js';
 import { ok } from 'assert';
 
 const samples = {
@@ -28,7 +28,7 @@ describe('splitOnEveryCharacter', () => {
   for (const lang of langs) {
     for (const sample of samples[lang]) {
       it(`should split ${lang} into individual characters`, () => {
-        const result = splitOnBreakpoint(sample.src);
+        const result = splitOnBreakpoints(sample.src);
         ok(result.join('') === sample.src);
         console.log(result);
       });

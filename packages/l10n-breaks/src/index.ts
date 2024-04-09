@@ -59,7 +59,7 @@ export const punctuation = {
  *
  * (See the {@link punctuation} rules.)
  */
-export function splitOnBreakpoint(text: string) {
+export function splitOnBreakpoints(text: string) {
   const result = [];
   const chars = [...text];
   for (let i = 0; i < chars.length; i++) {

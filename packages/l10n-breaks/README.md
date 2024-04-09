@@ -6,15 +6,15 @@ This package provides helpers for various linebreak cases.
 
 Supported cases:
 
-- **Chinese & Japanese**: `splitOnBreakpoint` breaks on ideographs while ensuring that punctuation is attached to the appropriate adjacent character, and splits non-CJ text on spaces and other punctuation (also attaching the punctuation to the appropriate side of the split).
+- **Chinese & Japanese**: `splitOnBreakpoints` breaks on ideographs while ensuring that punctuation is attached to the appropriate adjacent character, and splits non-CJ text on spaces and other punctuation (also attaching the punctuation to the appropriate side of the split).
 
 ## Usage
 
 ```typescript
-import { splitOnBreakpoint } from '@bscotch/l10n-breaks';
+import { splitOnBreakpoints } from '@bscotch/l10n-breaks';
 
 console.log(
-  splitOnBreakpoint(
+  splitOnBreakpoints(
     '记得长大后学习怎么12345 hello。用锤子的时候，第一课就是学会站稳脚跟。如果站不稳，那就永远都打不准。有时候往往是那些微不足道的小事，能帮你重新找到立足点。',
   ),
 );
