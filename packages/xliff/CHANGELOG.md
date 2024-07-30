@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.8.0 (2024-07-30)
+
+### Features
+
+- Stringified XLIFFs are now formatted instead of just being on one line
+
 ## 0.7.0 (2024-02-12)
 
 ### Features
