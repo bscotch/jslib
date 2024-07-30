@@ -33,7 +33,7 @@ export class XliffDocumentBuilder {
       .map((file) => file.toString())
       .filter((x) => !!x);
     assert(filesAsXml.length > 0, 'No files contained content.');
-    return `<?xml version="1.0" encoding="UTF-8" ?>\n<xliff version="2.0"${attributesToString(
+    return `<?xml version="1.0" encoding="UTF-8"?>\n<xliff version="2.0"${attributesToString(
       this.attributes,
     )} xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">${filesAsXml.join(
       '',
