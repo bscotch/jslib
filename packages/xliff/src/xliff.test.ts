@@ -42,12 +42,12 @@ describe('XLIFF Parser', function () {
     const reference = JSON.parse(
       await fs.promises.readFile('samples/test.json', 'utf8'),
     );
-    // Normalize via JSON to remove keys with undefined values
-    deepStrictEqual(JSON.parse(JSON.stringify(parsed)), reference);
     // await fs.promises.writeFile(
     //   'samples/test.json',
     //   JSON.stringify(parsed, null, 2),
     //   'utf8',
     // );
+    // Normalize via JSON to remove keys with undefined values
+    deepStrictEqual(JSON.parse(JSON.stringify(parsed)), reference);
   });
 });

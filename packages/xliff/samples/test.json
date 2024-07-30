@@ -10,6 +10,10 @@
         {
           "id": "root-note",
           "note": "This is a root note!"
+        },
+        {
+          "id": "another-note",
+          "note": "This is a another note!"
         }
       ],
       "groups": [
@@ -50,6 +54,16 @@
             {
               "source": "This is a root segment!",
               "target": "This is a translated root segment!"
+            }
+          ]
+        },
+        {
+          "id": "other-unit",
+          "notes": [],
+          "segments": [
+            {
+              "source": "This is a another segment!",
+              "target": "This is a translated another segment!"
             }
           ]
         }
