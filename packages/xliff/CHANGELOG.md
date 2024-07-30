@@ -1,5 +1,11 @@
 # Changelog - @bscotch/xliff
 
+## 0.8.1 (2024-07-30)
+
+### Fixes
+
+- Removed single excess space in new XLIFF format
+
 ## 0.8.0 (2024-07-30)
 
 ### Features
