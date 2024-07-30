@@ -18,7 +18,7 @@ export class XliffDocumentBuilder {
     this.attributes =
       typeof attributes === 'string'
         ? { srcLang: attributes }
-        : { ...attributes } || {};
+        : { ...attributes };
     this.attributes.srcLang ||= 'en-US';
   }
 
@@ -36,8 +36,8 @@ export class XliffDocumentBuilder {
     return `<?xml version="1.0" encoding="UTF-8" ?>\n<xliff version="2.0"${attributesToString(
       this.attributes,
     )} xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">${filesAsXml.join(
-      ' ',
-    )}</xliff>`;
+      '',
+    )}\n</xliff>`;
   }
 }
 
@@ -69,9 +69,9 @@ export class XliffFileBuilder {
       console.warn(`File ${this.attributes.id} has no content. Skipping.`);
       return '';
     }
-    return `<file${attributesToString(
+    return `\n\t<file${attributesToString(
       this.attributes,
-    )}>\n${this.notes.toString()}${this.content.toString()}</file>`;
+    )}>${this.notes.toString(2)}${this.content.toString()}\n\t</file>`;
   }
 }
 
@@ -83,12 +83,14 @@ export class XliffNotesBuilder {
     return this;
   }
 
-  toString(): string {
+  toString(indent = 0): string {
     const notesAsXml = this.notes
-      .map((note) => note.toString())
+      .map((note) => note.toString(indent + 1))
       .filter((x) => !!x);
     if (!notesAsXml.length) return '';
-    return `<notes>${notesAsXml.join(' ')}</notes>`;
+    return `\n${tab(indent)}<notes>\n${notesAsXml.join('\n')}\n${tab(
+      indent,
+    )}</notes>`;
   }
 }
 export class XliffNoteBuilder {
@@ -99,10 +101,10 @@ export class XliffNoteBuilder {
     assert(text, 'Note text must be provided.');
   }
 
-  toString(): string {
-    return `<note${attributesToString(this.attributes)}>${escapeXmlText(
-      this.text,
-    )}</note>`;
+  toString(indent = 0): string {
+    return `${'\t'.repeat(indent)}<note${attributesToString(
+      this.attributes,
+    )}>${escapeXmlText(this.text)}</note>`;
   }
 }
 
@@ -129,11 +131,11 @@ export class XliffContentBuilder {
     return unit;
   }
 
-  toString(): string {
+  toString(indent = 2): string {
     const contentAsXml = this.content
-      .map((content) => content.toString())
+      .map((content) => content.toString(indent))
       .filter((x) => !!x);
-    return contentAsXml.join(' ');
+    return contentAsXml.join('');
   }
 }
 
@@ -154,10 +156,12 @@ export class XliffGroupBuilder {
     return this.content.addUnit(...args);
   }
 
-  toString() {
-    return `<group${attributesToString(
+  toString(indent = 0): string {
+    return `\n${tab(indent)}<group${attributesToString(
       this.attributes,
-    )}>${this.notes.toString()}${this.content.toString()}</group>`;
+    )}>${this.notes.toString(indent + 1)}${this.content.toString(
+      indent + 1,
+    )}\n${tab(indent)}</group>`;
   }
 }
 
@@ -184,16 +188,16 @@ export class XliffUnitBuilder {
     return this;
   }
 
-  toString(): string {
+  toString(indent = 0): string {
     if (!this.segments.length) {
       console.warn(`Unit ${this.attributes.id} has no segments. Skipping.`);
       return '';
     }
-    return `<unit${attributesToString(
+    return `\n${tab(indent)}<unit${attributesToString(
       this.attributes,
-    )}>${this.notes.toString()}${this.segments
-      .map((segment) => segment.toString())
-      .join('')}</unit>`;
+    )}>${this.notes.toString(indent + 1)}${this.segments
+      .map((segment) => segment.toString(indent + 1))
+      .join('')}\n${tab(indent)}</unit>`;
   }
 }
 
@@ -212,11 +216,17 @@ export class XliffSegmentBuilder {
     return this;
   }
 
-  toString(): string {
-    return `<segment${attributesToString(
+  toString(indent = 0): string {
+    return `\n${tab(indent)}<segment${attributesToString(
       this.attributes,
-    )}><source>${escapeXmlText(this.text)}</source>${
-      this.#target ? `<target>${escapeXmlText(this.#target)}</target>` : ''
-    }</segment>`;
+    )}>\n${tab(indent + 1)}<source>${escapeXmlText(this.text)}</source>${
+      this.#target
+        ? `\n${tab(indent + 1)}<target>${escapeXmlText(this.#target)}</target>`
+        : ''
+    }\n${tab(indent)}</segment>`;
   }
+}
+
+function tab(level = 0) {
+  return '\t'.repeat(level);
 }

@@ -1,7 +1,6 @@
 import { ok } from 'assert';
 import fs from 'fs';
 import { deepStrictEqual } from 'node:assert';
-import { format } from './utility.test.js';
 import { createXliffDocument, parseXliff } from './xliff.js';
 
 const sample = fs.readFileSync('samples/test.xlf', 'utf8');
@@ -11,11 +10,18 @@ describe('XLIFF Builder', function () {
     const doc = createXliffDocument();
     const file = doc.addFile({ id: 'file1' });
     file.addNote('This is a root note!', { id: 'root-note' });
+    file.addNote('This is a another note!', { id: 'another-note' });
     file
       .addUnit({ id: 'root-unit' })
       .addSegment(
         'This is a root segment!',
         'This is a translated root segment!',
+      );
+    file
+      .addUnit({ id: 'other-unit' })
+      .addSegment(
+        'This is a another segment!',
+        'This is a translated another segment!',
       );
     file
       .addGroup({ id: 'group1' })
@@ -25,8 +31,8 @@ describe('XLIFF Builder', function () {
         'Stuff to translate!',
       )
       .addNote('This is a "note"!');
-    console.log(format(doc));
-    ok(format(doc) === format(sample));
+    const asString = doc.toString();
+    ok(asString === sample);
   });
 });
 

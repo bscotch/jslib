@@ -1,37 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff version="2.0" srcLang="en-US" xmlns="urn:oasis:names:tc:xliff:document:2.0"
-  xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">
-  <file id="file1">
-    <notes>
-      <note id="root-note">
-        This is a root note!
-      </note>
-    </notes>
-    <unit id="root-unit">
-      <segment>
-        <source>
-          This is a root segment!
-        </source>
-        <target>
-          This is a translated root segment!
-        </target>
-      </segment>
-    </unit>
-    <group id="group1">
-      <group id="Nested">
-        <unit id="unit1" slr:sizeRestriction="255">
-          <notes>
-            <note>
-              This is a &quot;note&quot;!
-            </note>
-          </notes>
-          <segment>
-            <source>
-              Stuff to translate!
-            </source>
-          </segment>
-        </unit>
-      </group>
-    </group>
-  </file>
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" srcLang="en-US" xmlns="urn:oasis:names:tc:xliff:document:2.0" xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">
+	<file id="file1">
+		<notes>
+			<note id="root-note">This is a root note!</note>
+			<note id="another-note">This is a another note!</note>
+		</notes>
+		<unit id="root-unit">
+			<segment>
+				<source>This is a root segment!</source>
+				<target>This is a translated root segment!</target>
+			</segment>
+		</unit>
+		<unit id="other-unit">
+			<segment>
+				<source>This is a another segment!</source>
+				<target>This is a translated another segment!</target>
+			</segment>
+		</unit>
+		<group id="group1">
+			<group id="Nested">
+				<unit id="unit1" slr:sizeRestriction="255">
+					<notes>
+						<note>This is a &quot;note&quot;!</note>
+					</notes>
+					<segment>
+						<source>Stuff to translate!</source>
+					</segment>
+				</unit>
+			</group>
+		</group>
+	</file>
 </xliff>
