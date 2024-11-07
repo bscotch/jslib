@@ -1,5 +1,11 @@
 # Changelog - @bscotch/pathy
 
+## 2.12.1 (2024-11-07)
+
+### Fixes
+
+- Now preventing an error when recursive file-listing fails due to permissions error on a folder
+
 ## 2.12.0 (2023-11-28)
 
 ### Features
