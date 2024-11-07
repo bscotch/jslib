@@ -357,8 +357,15 @@ export class PathyStatic {
       if (hasReachedLimit() || depth > (options?.maxDepth ?? Infinity)) {
         return;
       }
-
-      const children = await currentPath.listChildren();
+      let children: Pathy[] = [];
+      try {
+        children = await currentPath.listChildren();
+      } catch (err: any) {
+        if (options.onError !== 'throw') {
+          return;
+        }
+        throw err;
+      }
       for (const child of children) {
         if (hasReachedLimit()) {
           return;

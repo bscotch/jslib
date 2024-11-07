@@ -7,10 +7,10 @@
   "scripts": {
     "bump": "turbo run test build && treb version && node scripts/changelogs.mjs && git add . && git commit -m \"chore: updated changelogs\" && treb publish",
     "build:all": "turbo run build --force",
+    "test:all": "turbo run test --force",
     "clean:artifacts": "node ./scripts/nuke-builds.mjs",
     "clean:deps": "node ./scripts/nuke-deps.mjs",
     "fix:deps": "syncpack fix-mismatches && treb fix --allProjects --packageJson",
-    "test": "concurrently -k -n rumpus,tests \"cd rumpus/server && docker-compose up && pnpm serve:static\" \"node rumpus/server/scripts/ready.mjs && pnpm turbo run build test\" --only",
     "watch": "turbo run watch --parallel"
   },
   "dependencies": {
