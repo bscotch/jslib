@@ -172,10 +172,13 @@ export function arrayToObject(array: any[]) {
   if (!Array.isArray(array)) {
     return array;
   }
-  return array.reduce((asMap, value, index) => {
-    asMap[`${index}`] = value;
-    return asMap;
-  }, {} as { [key: string]: any });
+  return array.reduce(
+    (asMap, value, index) => {
+      asMap[`${index}`] = value;
+      return asMap;
+    },
+    {} as { [key: string]: any },
+  );
 }
 
 /**
@@ -392,7 +395,7 @@ export function merge<
       }
       continue;
     } else if (typeof o2[key] === 'object' && typeof merged[key] === 'object') {
-      merged[key] = merge(merged[key], o2[key], options) as any;
+      merged[key] = merge(merged[key] as any, o2[key], options) as any;
       continue;
     }
     // Fallback to clobbering

@@ -1,5 +1,5 @@
-import { literal } from '@bscotch/utility';
 import { createEventEmitter } from '@bscotch/emitter';
+import { literal } from '@bscotch/utility';
 
 export type DefaultFormat = [message: string, ...content: any[]];
 
@@ -49,7 +49,7 @@ export interface LoggerOptions<Format extends any[]> {
 function returnValueIfFunction<V>(
   value: V,
 ): V extends (...args: any[]) => infer R ? R : V {
-  return typeof value === 'function' ? value() : value;
+  return typeof value === 'function' ? value() : (value as any);
 }
 
 function defaultMinLevel() {
